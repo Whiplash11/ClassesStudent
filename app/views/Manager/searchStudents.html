@@ -1,0 +1,74 @@
+*{#{extends 'main.html'/}}*
+*{#{set title = 'Home'/}}*
+
+<link  rel="stylesheet"type="text/css" href="@{'/public/stylesheets/easyui.css'}">
+<link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/icon.css'}">
+<script type="text/javascript" src="@{'/public/javascripts/jquery-1.6.4.min.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/jquery.easyui.min.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/easyui-lang-zh_CN.js'}"></script>
+<script>
+
+    $(function () {
+
+        $('#box').layout({
+            fit : true,
+        });
+
+        $("#cc").datagrid({
+            fit:true,
+            title:'学生列表',
+            iconCls:'icon-man',
+            rownumbers:true,
+            pagination:true,
+            fitColumns:true,
+            idField:'sId',
+            striped:true,
+            singleSelect:true,
+
+            columns:[[
+                {field:'ck',checkbox:true},
+                {field:'sId',title:'学生编号',width:120,align:'center'},
+                {field: 'sName',title: '学生姓名',width:120,align:'center'},
+
+                {field:'cId',title:'班级编号',width:120,align:'center'},
+                {field:'operation',title:'操作',width:150,align:'center'},
+                {field:'sex',title:'性别',width:50,align:'center'},
+                {field:'age',title:'年龄',width:50,align:'center'},
+
+            ]],
+
+            toolbar:'#aa',
+        });
+
+
+    })
+</script>
+<div id="box" style="width: 600px;height: 400px;">
+    <div data-options="region:'north',title:'header',noheader:true" style="height: 70px;"></div>
+    <div data-options="region:'south',title:'footer',noheader:true" style="height: 35px;line-height: 30px;text-align: center;"><a href="###">联系</a></div>
+    <div data-options="region:'west',title:'导航',split:true" style="width: 180px; padding: 10px;"></div>
+    <div id="box" data-options="region:'center'" style="overflow:hidden">
+
+
+        <div id="cc" name="dept" value="01">
+
+            <table >
+            #{list items:searchStudent, as:'searchStudent'}
+                <tr>
+                    <td></td>
+                    <td>${searchStudent?.sId}</td>
+                    <td>${searchStudent?.sName}</td>
+                    <td>${searchStudent?.cId}</td>
+                    <td>
+                        <a href="/Manager/intoUpdateStudents?sId=${searchStudent.sId}" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">修改</a>
+                        <a href="/Manager/deleteStudents?sId=${searchStudent.sId}" class="easyui-linkbutton" data-options="iconCls:'icon-cut',plain:true">删除</a>
+                    </td>
+                </tr>
+            #{/list}
+                <a id="ss" href="@{Manager.getAllStudents()}" class="easyui-linkbutton" data-options="iconCls:'icon-back',plain:true">返回</a>
+            </table>
+        </div>
+
+
+    </div>
+</div>

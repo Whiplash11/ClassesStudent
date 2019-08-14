@@ -1,0 +1,70 @@
+*{#{extends 'main.html' /}}*
+*{#{set title:'Home' /}}*
+<link  rel="stylesheet"type="text/css" href="@{'/public/stylesheets/easyui.css'}">
+<link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/icon.css'}">
+<script type="text/javascript" src="@{'/public/javascripts/jquery-1.6.4.min.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/jquery.easyui.min.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/easyui-lang-zh_CN.js'}"></script>
+<script>
+    function isStudentNo(str) {
+        var reg=/^[0-9]{3}$/;
+        return reg.test(str);
+    }
+    function ischina(str) {
+        var reg=/^[\u4E00-\u9FA5]{2,4}$/;
+        return reg.test(str);
+    }
+
+    function  fun1(){
+        if(!isStudentNo(document.getElementById("sId").value)){
+            alert("学生编号是3位数字");
+            document.getElementById("sId").focus();
+            return false;
+        }
+        if(!ischina(document.getElementById("studentName").value)) {
+            alert("学生姓名必须填写中文");
+            document.getElementById("studentName").focus();
+            return false;
+        }
+
+    }
+    // var w=window.innerWidth
+    //         || document.documentElement.clientWidth
+    //         || document.body.clientWidth;
+    // var h=window.innerHeight
+    //         || document.documentElement.clientHeight
+    //         || document.body.clientHeight;
+    // document.write("可用高度: " + screen.availHeight);
+    // document.write("可用宽度: " + screen.availWidth);
+
+    //var myVar=setInterval(function(){myTimer()},1000);
+
+    // function myTimer()
+    // {
+    //     var d=new Date();
+    //     var t=d.toLocaleTimeString();
+    //     document.getElementById("demo").innerHTML=t;
+    // }
+    // function myStopFunction(){
+    //     clearInterval(myVar);
+    // }
+
+</script>
+<div data-options="region:'north',title:'header',noheader:true" style="height: 70px;"></div>
+<div data-options="region:'south',title:'footer',noheader:true" style="height: 35px;line-height: 30px;text-align: center;"><a href="###">联系</a></div>
+<div data-options="region:'west',title:'导航',split:true" style="width: 180px; padding: 10px;"></div>
+<div data-options="region:'center'" style="overflow:hidden">
+    <div class="easyui-panel" title="添加班级" style="width:400px">
+        <div style="padding:10px 60px 20px 60px;">
+            <form  id="demo" action="@{Manager.addStudents()}" method="post" onsubmit="return fun1()">
+                学生编号：<input  type="text" name="studentId"  class="easyui-textbox" data-options="required:true"><br>
+                学生姓名：<input  type="text" name="studentName" class="easyui-textbox" data-options="required:true"><br>
+                班级编号：<input type="text" name="classId" class="easyui-textbox" data-options="required:true"><br>
+                <div style="text-align:center">
+                    <input type="submit" value="保存" class="easyui-linkbutton"data-options="plain:true">
+                    <input type="submit" value="返回" formaction="@{Manager.getAllStudents()}" formmethod="get" class="easyui-linkbutton" data-options="plain:true">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

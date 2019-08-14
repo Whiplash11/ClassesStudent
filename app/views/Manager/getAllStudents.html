@@ -1,0 +1,97 @@
+*{#{extends 'main.html'/}}*
+*{#{set title = 'Home'/}}*
+
+<link rel="stylesheet" type="text/css" href="/public/jquery-easyui-1.7.0/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="/public/jquery-easyui-1.7.0/themes/icon.css">
+<script type="text/javascript" src="@{'public/javascripts/easyui-lang-zh_CN.js'}"></script>
+<script type="text/javascript" src="/public/jquery-easyui-1.7.0/jquery.min.js"></script>
+<script type="text/javascript" src="/public/jquery-easyui-1.7.0/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="@{'/public/javascripts/getAllStudents.js'}"></script>
+<style>
+
+</style>
+<script type="text/javascript">
+
+</script>
+<div id="box" style="width: 600px;height: 400px;">
+    <div data-options="region:'north',title:'header',noheader:true" style="height: 70px;"></div>
+    <div data-options="region:'south',title:'footer',noheader:true" style="height: 35px;line-height: 30px;text-align: center;"></div>
+    <div data-options="region:'west',title:'导航',split:true" style="width: 180px; padding: 10px;"></div>
+    <div id="box"  data-options="region:'center'" style="overflow:hidden" >
+
+        <div id="ss">
+            <a class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" href="/Manager/intoUpdateStudents" >
+                编辑
+            </a>
+            <a class="easyui-linkbutton" data-options="iconCls:'icon-cut',plain:true"name="delete"
+               href="/Manager/deleteStudents" onclick="myFunction()">
+                删除
+            </a>
+*{            <a   id="aa" class="easyui-linkbutton"}*
+*{                 data-options="iconCls:'icon-add',plain:true," >}*
+*{                添加}*
+*{            </a>}*
+
+            <div  id="hovertreewindow"  class="easyui-window" title="添加学生"style="width:400px;padding:10px 60px 20px 60px;">
+                <form  action="@{Manager.addStudents()}" method="post" >
+                    学生编号：<input  id="sId" type="text" name="studentId"  class="easyui-textbox" data-options="required:true"><br>
+                    学生姓名：<input  id="sName" type="text" name="studentName" class="easyui-textbox" data-options="required:true"><br>
+                    班级编号：<input type="text" name="classId" class="easyui-textbox" data-options="required:true"><br>
+                    <div style="text-align:center">
+                        <input type="submit" value="保存" class="easyui-linkbutton"data-options="plain:true" onclick="fun1()">
+                        <input type="button" value="返回" formaction="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true" onclick="$('#hovertreewindow').window('close')">
+                    </div>
+                </form>
+            </div>
+
+            <a id="aa" href="javascript:void(0)"  onclick="$('#hover'+'treewindow').window('open')">
+                添加
+            </a>
+*{            <div  id="hovertreewindow"    style="width:400px;padding:10px 60px 20px 60px;">}*
+*{                <form  action="@{Manager.addStudents()}" method="post" >}*
+*{                    学生编号：<input  type="text" name="studentId"  class="easyui-textbox" data-options="required:true"><br>}*
+*{                    学生姓名：<input  type="text" name="studentName" class="easyui-textbox" data-options="required:true"><br>}*
+*{                    班级编号：<input type="text" name="classId" class="easyui-textbox" data-options="required:true"><br>}*
+*{                    <div style="text-align:center">}*
+*{                        <input type="submit" value="保存" class="easyui-linkbutton"data-options="plain:true">}*
+*{                        <input type="submit" value="返回" formaction="@{Manager.getAllStudents()}" formmethod="get" class="easyui-linkbutton" data-options="plain:true">}*
+*{                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true"onclick="$('#hovertreewindow').window('close')">返回</a>}*
+*{                    </div>}*
+*{                </form>}*
+*{            </div>}*
+
+            <a href="@{Manager.getAllClasses()}" class="easyui-linkbutton"
+               data-options="iconCls:'icon-back',plain:true" style="float: right">
+                返回班级
+            </a>
+            <form>
+                <input id="searchBar" type="search" name="sId" class="easyui-searchbox" >
+                <input id="search" type="submit"  class="easyui-linkbutton" data-options="plain:true" formaction="@{Manager.searchStudents()}" formmethod="post">
+            </form>
+        </div>
+
+        <div id="cc" >
+            <table id="tt">
+            #{list items:allStudents, as:'students'}
+                <tr >
+                    <td></td>
+                    <td >${students.sId}</td>
+                    <td >${students.sName}</td>
+                    <td>${students.cId}</td>
+                    <td>
+                        <a class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" href="/Manager/intoUpdateStudents?sId=${students.sId}" >
+                            编辑
+                        </a>
+                        <a class="easyui-linkbutton" data-options="iconCls:'icon-cut',plain:true"name="delete" href="/Manager/deleteStudents?sId=${students.sId}" onclick="myFunction()">
+                            删除
+                        </a>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            #{/list}
+            </table>
+        </div>
+    </div>
+</div>
+

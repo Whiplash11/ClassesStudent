@@ -1,0 +1,25 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+<link  rel="stylesheet"type="text/css" href="@{'/public/stylesheets/easyui.css'}">
+<link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/icon.css'}">
+<script type="text/javascript" src="@{'/public/javascripts/jquery-1.6.4.min.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/jquery.easyui.min.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/easyui-lang-zh_CN.js'}"></script>
+<script>
+
+</script>
+<div class="easyui-window" title="添加班级" style="width:400px">
+    <div class="easyui-window" title="添加班级" style="width:400px;padding:10px 60px 20px 60px;">
+        <form action="@{Manager.addClasses()}" method="post">
+            班级编号：<input type="text" name="classes.cId" class="easyui-textbox" data-options="required:true"><br>
+            班级名称：<input type="text" name="classes.cName" class="easyui-textbox" data-options="required:true"><br>
+            <div style="text-align:center;padding:5px">
+                <input type="submit" value="保存" class="easyui-linkbutton">
+                <input type="submit" value="返回" formaction="@{Manager.getAllClasses() }" formmethod="get" class="easyui-linkbutton">
+            </div>
+
+
+        </form>
+
+    </div>
+</div>
