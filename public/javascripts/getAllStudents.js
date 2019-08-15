@@ -45,11 +45,15 @@ $(function () {
         fit:true,
         title:'学生列表',
         iconCls:'icon-man',
-        rownumbers:true,
-        pagination:true,
+        rownumbers:true,//行号
+        pagination:true,//分页
         pageSize:10,
-
-        fitColumns:true,
+        pageNumber:1,
+        pageList:[10,20,30],
+        onSelectPage:function(pageNumber,pageSize){
+            $('#cc').datagrid('refresh','pageNumber='+pageNumber+'&pageSize=' +pageSize);
+        },
+        fitColumns:true,//自适应
         idField:'sId',
         striped:true,
         singleSelect:true,
@@ -64,9 +68,8 @@ $(function () {
             {field:'age',title:'年龄',width:100,align:'center'},
         ]],
 
-
-
     });
+    $("#cc").pagination()
     //弹出层
     $('#hovertreewindow').dialog({
         title:'添加学生',

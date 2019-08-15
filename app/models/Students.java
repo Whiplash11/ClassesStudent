@@ -16,6 +16,8 @@ public class Students extends GenericModel {
     public String sName;
     @Column
     public String cId;
+//    @ManyToOne
+//    public Classes cId;
 
 
     public Students() {

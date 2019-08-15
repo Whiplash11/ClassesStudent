@@ -16,7 +16,6 @@ public class Classes extends GenericModel {
     @Column
     public String cName;
 
-
     public Classes() {
         super();
     }

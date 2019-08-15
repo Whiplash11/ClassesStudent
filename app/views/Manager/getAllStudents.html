@@ -3,7 +3,7 @@
 
 <link rel="stylesheet" type="text/css" href="/public/jquery-easyui-1.7.0/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="/public/jquery-easyui-1.7.0/themes/icon.css">
-<script type="text/javascript" src="@{'public/javascripts/easyui-lang-zh_CN.js'}"></script>
+<script type="text/javascript" src="/public/javascripts/easyui-lang-zh_CN.js'"></script>
 <script type="text/javascript" src="/public/jquery-easyui-1.7.0/jquery.min.js"></script>
 <script type="text/javascript" src="/public/jquery-easyui-1.7.0/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="@{'/public/javascripts/getAllStudents.js'}"></script>
@@ -13,12 +13,47 @@
 <script type="text/javascript">
 
 </script>
-<div id="box" style="width: 600px;height: 400px;">
+<div id="box" style="">
     <div data-options="region:'north',title:'header',noheader:true" style="height: 70px;"></div>
     <div data-options="region:'south',title:'footer',noheader:true" style="height: 35px;line-height: 30px;text-align: center;"></div>
-    <div data-options="region:'west',title:'导航',split:true" style="width: 180px; padding: 10px;"></div>
+    <div data-options="region:'west',title:'导航',split:true" style="width: 250px; padding: 10px;">
+        <ul id="tt" class="easyui-tree">
+            <li>
+                <span>管理</span>
+                <ul>
+                    <li>
+                        <span>班级列表</span>
+                        <ul>
+                            <li><span><a href="#">File 11</a></span></li>
+                            <li><span>File 12</span></li>
+                            <li><span>File 13</span></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <span>学生管理</span>
+                        <ul>
+                            <li><span><a href="#">File 11</a></span></li>
+                            <li><span>File 12</span></li>
+                            <li><span>File 13</span></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span>教师管理</span>
+                        <ul>
+                            <li><span><a href="#">File 11</a></span></li>
+                            <li><span>File 12</span></li>
+                            <li><span>File 13</span></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
     <div id="box"  data-options="region:'center'" style="overflow:hidden" >
 
+                *{工具菜单}*
         <div id="ss">
             <a class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" href="/Manager/intoUpdateStudents" >
                 编辑
@@ -28,11 +63,11 @@
                 删除
             </a>
 *{            <a   id="aa" class="easyui-linkbutton"}*
-*{                 data-options="iconCls:'icon-add',plain:true," >}*
+*{                 data-options="iconCls:'icon-add',plain:true," >}*x
 *{                添加}*
 *{            </a>}*
 
-            <div  id="hovertreewindow"  class="easyui-window" title="添加学生"style="width:400px;padding:10px 60px 20px 60px;">
+            <div  id="hovertreewindow"  class="easyui-window" closed="true" title="添加学生"style="width:400px;padding:10px 60px 20px 60px;">
                 <form  action="@{Manager.addStudents()}" method="post" >
                     学生编号：<input  id="sId" type="text" name="studentId"  class="easyui-textbox" data-options="required:true"><br>
                     学生姓名：<input  id="sName" type="text" name="studentName" class="easyui-textbox" data-options="required:true"><br>
@@ -60,7 +95,7 @@
 *{                </form>}*
 *{            </div>}*
 
-            <a href="@{Manager.getAllClasses()}" class="easyui-linkbutton"
+            <a id="aaa" href="@{Manager.getAllClasses()}" class="easyui-linkbutton"
                data-options="iconCls:'icon-back',plain:true" style="float: right">
                 返回班级
             </a>
@@ -70,6 +105,7 @@
             </form>
         </div>
 
+            *{数据表格 }*
         <div id="cc" >
             <table id="tt">
             #{list items:allStudents, as:'students'}
