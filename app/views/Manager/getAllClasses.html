@@ -37,8 +37,10 @@
             pagination:true,
             fitColumns:true,
             idField:'classId',
-            striped:true,
-            singleSelect:true,
+
+            onSelectPage:function(pageNumber,pageSize){
+                $('#cc').datagrid('refresh','pageNumber='+pageNumber+'&pageSize=' +pageSize);
+            },
             columns:[[
                 {field:'ck',checkbox:true},
                 {field:'classId',title:'班级编号',width:120,align:'center'},
@@ -50,7 +52,14 @@
             //     text:'添加班级',
             //
             // }]
-            toolbar:'#ss'
+            toolbar:'#ss',
+            striped:true,
+            checkOnSelect:false,
+            selectOncheck:true,
+            //singleSelect:true,
+            onClickRow: function (rowIndex, rowData) {
+                $(this).datagrid('unselectRow', rowIndex);
+            },
         });
         $('#hovertreewindow').dialog({
             title:'添加班级',
@@ -74,7 +83,41 @@
 
     <div data-options="region:'north',title:'header',noheader:true" style="height: 70px;"></div>
     <div data-options="region:'south',title:'footer',noheader:true" style="height: 35px;line-height: 30px;text-align: center;"><a href="###">联系</a></div>
-    <div data-options="region:'west',title:'导航',split:true" style="width: 180px; padding: 10px;"></div>
+    <div data-options="region:'west',title:'导航',split:true" style="width: 180px; padding: 10px;">
+        <ul id="tt" class="easyui-tree">
+            <li>
+                <span>管理</span>
+                <ul>
+                    <li>
+                        <span>班级列表</span>
+                        <ul>
+                        #{list items:allClasses, as:'classes'}
+                            <li><span><a href="#">${classes.cName}</a></span></li>
+                        #{/list}
+                        </ul>
+                    </li>
+
+                    <li>
+                        <span>学生管理</span>
+                        <ul>
+                            <li><span><a href="#">File 11</a></span></li>
+                            <li><span>File 12</span></li>
+                            <li><span>File 13</span></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span>教师管理</span>
+                        <ul>
+                            <li><span><a href="#">File 11</a></span></li>
+                            <li><span>File 12</span></li>
+                            <li><span>File 13</span></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
     <div id="box" data-options="region:'center'" style="overflow:hidden">
 
             <!--            <button id="bt" >遍历学生</button>-->
@@ -86,7 +129,7 @@
             <a id="aa" href="javascript:void(0)"  onclick="$('#hover'+'treewindow').window('open')">
                 添加
             </a>
-            <div id="hovertreewindow" class="easyui-window" title="添加班级" style="width:400px;padding:10px 60px 20px 60px;">
+            <div id="hovertreewindow" class="easyui-window" title="添加班级" closed="true"style="width:400px;padding:10px 60px 20px 60px;">
                 <form action="@{Manager.addClasses()}" method="post">
                     班级编号：<input type="text" name="classes.cId" class="easyui-textbox" data-options="required:true"><br>
                     班级名称：<input type="text" name="classes.cName" class="easyui-textbox" data-options="required:true"><br>
@@ -107,8 +150,8 @@
             #{list items:allClasses, as:'classes'}
                 <tr >
                     <td></td>
-                    <td><a href="@{Manager.getAllStudents()}">${classes.cId}</a></td>
-                    <td><a href="@{Manager.getAllStudents()}">${classes.cName}</a></td>
+                    <td>${classes.cId}</td>
+                    <td><a href="/Manager/getAllStudents?cId=${classes.cId}">${classes.cName}</a></td>
                     <td >
                         <a href="/Manager/deleteClasses?cId=${classes.cId}" name="delete"class="easyui-linkbutton" data-options="iconCls:'icon-cut',plain:true" onclick="return myFunction()">
                             删除
@@ -116,7 +159,6 @@
                     </td>
                 </tr>
             #{/list}
-
             </table>
         </div>
         </form>

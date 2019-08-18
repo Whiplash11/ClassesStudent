@@ -77,7 +77,6 @@ public class Manager extends Controller {
      * @param
      */
     public static void searchStudents(String sId){
-        System.out.println(":" + sId);
         String id = String.valueOf(sId);
         Students searchStudent = studentDao.getStudentById(id);
 
@@ -94,9 +93,9 @@ public class Manager extends Controller {
 
     /**
      * 添加学生
-     * @param students
+     * @param
      */
-    public static void addStudents(Students students){
+    public static void addStudents(){
         String studentId = params.get("studentId");
         String studentName = params.get("studentName");
         String classId = params.get("classId") ;
@@ -123,7 +122,8 @@ public class Manager extends Controller {
      * 修改成功
      * @param
      */
-    public static void updateSuccess(String sId){
+    public static void updateSuccess(){
+        String sId = params.get("sId");
         Students students = new Students();
         Students.find(sId);
         students.sId=sId;
@@ -141,6 +141,25 @@ public class Manager extends Controller {
         boolean x;
         studentDao.deleteStudents(deleteStudent);
         getAllStudents();
+    }
+
+
+    /**
+     * 显示成绩
+     */
+    public static void showGrade(Students sId){
+        String id = String.valueOf(sId);
+        Grade grade = Grade.findById(id);
+        renderArgs.put("grade",grade);
+
+//        String maths = params.get("matchs");
+//        String english = params.get("english");
+//        String chinese = params.get("chinese");
+//        String id = String.valueOf(sId);
+//        Grade grade = Grade.findById(id);
+//        grade.maths = maths;
+//        grade.english = english;
+//        grade.chinese = chinese;
 
     }
 }

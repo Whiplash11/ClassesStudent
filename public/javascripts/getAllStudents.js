@@ -45,31 +45,41 @@ $(function () {
         fit:true,
         title:'学生列表',
         iconCls:'icon-man',
+        url:'${}',
         rownumbers:true,//行号
         pagination:true,//分页
-        pageSize:10,
-        pageNumber:1,
-        pageList:[10,20,30],
+        // pageSize:10,
+        // pageNumber:1,
+        // pageList:[10,20,30],
         onSelectPage:function(pageNumber,pageSize){
             $('#cc').datagrid('refresh','pageNumber='+pageNumber+'&pageSize=' +pageSize);
         },
+
         fitColumns:true,//自适应
         idField:'sId',
         striped:true,
-        singleSelect:true,
-        checkOnSelect:true,
+        //singleSelect:true,
+        checkOnSelect:false,
+        selectOncheck:true,
+        onClickRow: function (rowIndex, rowData) {
+            $(this).datagrid('unselectRow', rowIndex);
+        },
         columns:[[
             {field:'ck',checkbox:true},
             {field:'sId',title:'学生编号',width:100,align:'center'},
-            {field: 'sName',title: '学生姓名',width:120,align:'center'},
+            {field: 'sName',title: '学生姓名',width:120,align:'center',editor:'text'},
             {field:'cId',title:'班级编号',width:100,align:'center'},
+            {field:'grade',title:'成绩',width:100,align:'center'},
             {field:'operation',title:'操作',width:130,align:'center'},
             {field:'sex',title:'性别',width:80,align:'center'},
             {field:'age',title:'年龄',width:100,align:'center'},
         ]],
 
     });
-    $("#cc").pagination()
+
+    $("#cc").pagination({
+
+    })
     //弹出层
     $('#hovertreewindow').dialog({
         title:'添加学生',
@@ -79,16 +89,33 @@ $(function () {
         minimizable:true,
         closable:true, //显示关闭按钮
     })
-
+    $('#hoverstreewindow').dialog({
+        title:'编辑信息',
+        iconCls:'icon-edit',
+        resizable:true, //调整窗口大小
+        draggable:true, //拖拽操作
+        minimizable:true,
+        closable:true, //显示关闭按钮
+    })
+    $('#grade').dialog({
+        title:'成绩信息',
+        iconCls:'icon-edit',
+        resizable:true, //调整窗口大小
+        draggable:true, //拖拽操作
+        minimizable:true,
+        closable:true, //显示关闭按钮
+    })
     $('#aa').linkbutton({
         iconCls:'icon-add',
         plain:true,
     })
 
-    var row = $('#tt').datagrid('getSelected');
-    if (row){
-        alert('Item ID:'+row.itemid+"\nPrice:"+row.listprice);
-    }
+    // var row = $('#tt').datagrid('getSelected');
+    // if (row){
+    //     alert('Item ID:'+row.sId+"\nPrice:"+row.listprice);
+    // }
+    $('#cc').datagrid('clearSelections');
+
 
 })
 
@@ -190,9 +217,6 @@ $(function () {
 //                     editIndex = undefined;
 //                 }
 //             })
-//
 //         }
-//
-//
 //     }
 // }

@@ -3,6 +3,7 @@ package models;
 import play.db.jpa.GenericModel;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * @author
@@ -16,7 +17,8 @@ public class Students extends GenericModel {
     public String sName;
     @Column
     public String cId;
-//    @ManyToOne
+//    @ManyToOne (cascade = CascadeType.ALL)
+//    @JoinColumn(name = "class_id")
 //    public Classes cId;
 
 

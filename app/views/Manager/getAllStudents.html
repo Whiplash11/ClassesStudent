@@ -24,7 +24,7 @@
                     <li>
                         <span>班级列表</span>
                         <ul>
-                            <li><span><a href="#">File 11</a></span></li>
+
                             <li><span>File 12</span></li>
                             <li><span>File 13</span></li>
                         </ul>
@@ -48,9 +48,9 @@
                     </li>
                 </ul>
             </li>
-
         </ul>
     </div>
+
     <div id="box"  data-options="region:'center'" style="overflow:hidden" >
 
                 *{工具菜单}*
@@ -62,39 +62,9 @@
                href="/Manager/deleteStudents" onclick="myFunction()">
                 删除
             </a>
-*{            <a   id="aa" class="easyui-linkbutton"}*
-*{                 data-options="iconCls:'icon-add',plain:true," >}*x
-*{                添加}*
-*{            </a>}*
-
-            <div  id="hovertreewindow"  class="easyui-window" closed="true" title="添加学生"style="width:400px;padding:10px 60px 20px 60px;">
-                <form  action="@{Manager.addStudents()}" method="post" >
-                    学生编号：<input  id="sId" type="text" name="studentId"  class="easyui-textbox" data-options="required:true"><br>
-                    学生姓名：<input  id="sName" type="text" name="studentName" class="easyui-textbox" data-options="required:true"><br>
-                    班级编号：<input type="text" name="classId" class="easyui-textbox" data-options="required:true"><br>
-                    <div style="text-align:center">
-                        <input type="submit" value="保存" class="easyui-linkbutton"data-options="plain:true" onclick="fun1()">
-                        <input type="button" value="返回" formaction="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true" onclick="$('#hovertreewindow').window('close')">
-                    </div>
-                </form>
-            </div>
-
             <a id="aa" href="javascript:void(0)"  onclick="$('#hover'+'treewindow').window('open')">
                 添加
             </a>
-*{            <div  id="hovertreewindow"    style="width:400px;padding:10px 60px 20px 60px;">}*
-*{                <form  action="@{Manager.addStudents()}" method="post" >}*
-*{                    学生编号：<input  type="text" name="studentId"  class="easyui-textbox" data-options="required:true"><br>}*
-*{                    学生姓名：<input  type="text" name="studentName" class="easyui-textbox" data-options="required:true"><br>}*
-*{                    班级编号：<input type="text" name="classId" class="easyui-textbox" data-options="required:true"><br>}*
-*{                    <div style="text-align:center">}*
-*{                        <input type="submit" value="保存" class="easyui-linkbutton"data-options="plain:true">}*
-*{                        <input type="submit" value="返回" formaction="@{Manager.getAllStudents()}" formmethod="get" class="easyui-linkbutton" data-options="plain:true">}*
-*{                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true"onclick="$('#hovertreewindow').window('close')">返回</a>}*
-*{                    </div>}*
-*{                </form>}*
-*{            </div>}*
-
             <a id="aaa" href="@{Manager.getAllClasses()}" class="easyui-linkbutton"
                data-options="iconCls:'icon-back',plain:true" style="float: right">
                 返回班级
@@ -105,19 +75,23 @@
             </form>
         </div>
 
+
+
             *{数据表格 }*
         <div id="cc" >
-            <table id="tt">
+            <table id="tt" >
             #{list items:allStudents, as:'students'}
                 <tr >
                     <td></td>
                     <td >${students.sId}</td>
                     <td >${students.sName}</td>
                     <td>${students.cId}</td>
+                    <td><a href="#" onclick="$('#grade').window('open')">成绩</a></td>
                     <td>
-                        <a class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" href="/Manager/intoUpdateStudents?sId=${students.sId}" >
+                        <a  class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true"  onclick="$('#hovers'+'treewindow').window('open')">
                             编辑
                         </a>
+
                         <a class="easyui-linkbutton" data-options="iconCls:'icon-cut',plain:true"name="delete" href="/Manager/deleteStudents?sId=${students.sId}" onclick="myFunction()">
                             删除
                         </a>
@@ -127,6 +101,77 @@
                 </tr>
             #{/list}
             </table>
+
+
+*{            添加学生弹窗}*
+            <div  id="hovertreewindow"  class="easyui-window" closed="true" title="添加学生"style="width:400px;padding:10px 60px 20px 60px;">
+                <form  action="@{Manager.addStudents()}" method="post" >
+                    学生编号：<input  id="sId" type="text" name="studentId"  class="easyui-textbox" data-options="required:true"><br>
+                    学生姓名：<input  id="sName" type="text" name="studentName" class="easyui-textbox" data-options="required:true"><br>
+                    班级编号：<input type="text" name="classId" class="easyui-textbox" data-options="required:true"><br>
+                    <div style="text-align:center">
+                        <input type="submit" value="保存" class="easyui-linkbutton"data-options="plain:true" onclick="fun1()">
+*{                        <input type="button" value="返回" formaction="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true" onclick="$('#hovertreewindow').window('close')">}*
+                    </div>
+                </form>
+            </div>
+
+
+
+*{            信息修改弹窗}*
+            <div id="hoverstreewindow" class="easyui-window" title="编辑信息" closed="true" data-options="iconCls:'icon-edit'" style="width:400px;padding:10px 60px 20px 60px;">
+                <form >
+                    <table >
+                        <tr>
+                            <td>学生编号</td>
+                            <td>
+                            ${allStudents.sId}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>学生姓名</td>
+                            <td>
+                                <input type="hidden" value="${allStudents.sId}" name="updateStudent.sId" />
+                                <input type="text" value="${allStudents.sName}" name="updateStudent.sName" class="easyui-textbox" data-options="required:true"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>班级编号</td>
+                            <td>
+                                <input type="hidden" value="${allStudents.sId}" name="updateStudent.sId"/>
+                                <input type="text" value="${allStudents.cId}" name="updateStudent.cId" class="easyui-textbox" data-options="required:true"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <div style="text-align:center">
+                        <input type="submit" value="保存" class="easyui-linkbutton" data-options="plain:true" formaction="@{Manager.updateSuccess()}" formmethod="get">
+*{                        <input type="button" value="返回" formaction="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true" onclick="$('#hoverstreewindow').window('close')">}*
+                    </div>
+                </form>
+            </div>
+
+
+
+
+*{            成绩弹窗}*
+            <div id="grade" class="easyui-window"  closed="true" style="width:400px;padding:10px 60px 20px 60px;">
+                <form>
+                    <table>
+                        <tr>
+                            <td>语文</td>
+                            <td><input type="text" class="easyui-textbox" name="chinese" value="${}"></td>
+                        </tr>
+                        <tr>
+                            <td>英语</td>
+                            <td><input type="text" class="easyui-textbox" name="English" value="${}"></td>
+                        </tr>
+                        <tr>
+                            <td>数学</td>
+                            <td><input type="text" class="easyui-textbox" name="maths" value="${}"></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
         </div>
     </div>
 </div>
