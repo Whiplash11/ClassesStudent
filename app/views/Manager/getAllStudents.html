@@ -3,9 +3,9 @@
 
 <link rel="stylesheet" type="text/css" href="/public/jquery-easyui-1.7.0/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="/public/jquery-easyui-1.7.0/themes/icon.css">
-<script type="text/javascript" src="/public/javascripts/easyui-lang-zh_CN.js'"></script>
 <script type="text/javascript" src="/public/jquery-easyui-1.7.0/jquery.min.js"></script>
 <script type="text/javascript" src="/public/jquery-easyui-1.7.0/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="@{'/public/javascripts/easyui-lang-zh_CN.js'}"></script>
 <script type="text/javascript" src="@{'/public/javascripts/getAllStudents.js'}"></script>
 <style>
 
@@ -24,9 +24,11 @@
                     <li>
                         <span>班级列表</span>
                         <ul>
-
-                            <li><span>File 12</span></li>
-                            <li><span>File 13</span></li>
+                        #{list items:allClasses, as:'classes'}
+                            <li><span>
+                                <a href="/Manager/getAllStudents?cId=${classes.cId}">${classes.cName}</a>
+                            </span></li>
+                        #{/list}
                         </ul>
                     </li>
 
@@ -48,6 +50,7 @@
                     </li>
                 </ul>
             </li>
+
         </ul>
     </div>
 
@@ -144,7 +147,7 @@
                         </tr>
                     </table>
                     <div style="text-align:center">
-                        <input type="submit" value="保存" class="easyui-linkbutton" data-options="plain:true" formaction="@{Manager.updateSuccess()}" formmethod="get">
+                        <input type="submit" value="保存" class="easyui-linkbutton" data-options="plain:true" formaction="@{Manager.updateStudentsSuccess()}" formmethod="get">
 *{                        <input type="button" value="返回" formaction="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true" onclick="$('#hoverstreewindow').window('close')">}*
                     </div>
                 </form>
@@ -170,6 +173,9 @@
                             <td><input type="text" class="easyui-textbox" name="maths" value="${}"></td>
                         </tr>
                     </table>
+                    <div style="text-align:center">
+                        <input type="submit" value="保存" class="easyui-linkbutton" data-options="plain:true" formaction="@{Manager.updateGradeSuccess ()}" formmethod="get">
+                    </div>
                 </form>
             </div>
         </div>

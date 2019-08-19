@@ -14,6 +14,7 @@ public class Manager extends Controller {
 
     private static ClassesDao classesDao = new ClassesDao();
     private static StudentDao studentDao = new StudentDao();
+    private static GradeDao gradeDao = new GradeDao();
     /**
      * 班级列表
      */
@@ -66,9 +67,9 @@ public class Manager extends Controller {
      */
     public static void getAllStudents(){
 //         allStudents = Students.findAll();
-
+        List<Classes> allClasses = Classes.findAll();
         List<Students> allStudents = Students.find(" order by sId ").fetch();
-        render(allStudents);
+        render(allStudents,allClasses);
     }
 
 
@@ -122,7 +123,7 @@ public class Manager extends Controller {
      * 修改成功
      * @param
      */
-    public static void updateSuccess(){
+    public static void updateStudentsSuccess(){
         String sId = params.get("sId");
         Students students = new Students();
         Students.find(sId);
@@ -162,4 +163,20 @@ public class Manager extends Controller {
 //        grade.chinese = chinese;
 
     }
+
+
+    public static void updateGradeSuccess(){
+        String sId = params.get("sId");
+
+        Grade grade = new Grade();
+        String id = String.valueOf(sId);
+        grade = Grade.findById(id);
+        Grade.find(sId);
+        Students students = new Students();
+        students.sId=sId;
+
+        grade.save();
+
+    }
+
 }
