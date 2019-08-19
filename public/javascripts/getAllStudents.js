@@ -43,10 +43,11 @@ $(function () {
     $("#cc").datagrid({
         toolbar:'#ss',
         fit:true,
-        title:'学生列表',
-        iconCls:'icon-man',
-        url:'${}',
+        // title:'学生列表',
+        // iconCls:'icon-man',
+        border:false,
         rownumbers:true,//行号
+
         pagination:true,//分页
         // pageSize:10,
         // pageNumber:1,
@@ -60,7 +61,7 @@ $(function () {
         striped:true,
         //singleSelect:true,
         checkOnSelect:false,
-        selectOncheck:true,
+        selectOnCheck:true,
         onClickRow: function (rowIndex, rowData) {
             $(this).datagrid('unselectRow', rowIndex);
         },
@@ -76,7 +77,7 @@ $(function () {
         ]],
 
     });
-
+    $('#cc').datagrid('clearSelections');
     $('#cc').datagrid({ loadFilter: pagerFilter }).datagrid({
         // url: '/FreshStudentMaintain/test'     //加载数据
     });
@@ -147,10 +148,62 @@ $(function () {
     // if (row){
     //     alert('Item ID:'+row.sId+"\nPrice:"+row.listprice);
     // }
-    $('#cc').datagrid('clearSelections');
 
 
+
+
+    parent.$('#ll').panel('refresh',url)
 })
+
+var row = $('#grid_line').datagrid('getSelected');
+if (row) {
+    var rowIndex = $('#grid_line').datagrid('getRowIndex', row);
+    $('#grid_line').datagrid('deleteRow', rowIndex);
+}
+
+
+
+
+
+
+
+
+$(function () {
+    $('#tt').tree({
+        lines : true,
+        onLoadSuccess : function (node,data) {
+            if (data){
+                $(data).each(function (index,value) {
+                    if (this.state == 'closed'){
+                        $('#tt').tree('expendAll')
+                    }
+                })
+            }
+        },
+        onClick : function (node) {
+            if (node.url){
+                $('#tab').tabs('add',{
+                    title : node.text,
+
+                })
+            }
+        }
+    })
+
+    $('#tab').tabs({
+        border:false,
+        plain:true,
+
+    })
+})
+
+
+
+
+
+
+
+
 
 
 
