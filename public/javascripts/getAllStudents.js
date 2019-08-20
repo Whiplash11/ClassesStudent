@@ -65,16 +65,16 @@ $(function () {
         onClickRow: function (rowIndex, rowData) {
             $(this).datagrid('unselectRow', rowIndex);
         },
-        columns:[[
-            {field:'ck',checkbox:true},
-            {field:'sId',title:'学生编号',width:100,align:'center'},
-            {field: 'sName',title: '学生姓名',width:120,align:'center',editor:'text'},
-            {field:'cId',title:'班级编号',width:100,align:'center'},
-            {field:'grade',title:'成绩',width:100,align:'center'},
-            {field:'operation',title:'操作',width:130,align:'center'},
-            {field:'sex',title:'性别',width:80,align:'center'},
-            {field:'age',title:'年龄',width:100,align:'center'},
-        ]],
+        // columns:[[
+        //     {field:'ck',checkbox:true},
+        //     {field:'sId',title:'学生编号',width:100,align:'center'},
+        //     {field: 'sName',title: '学生姓名',width:120,align:'center',editor:'text'},
+        //     {field:'cId',title:'班级编号',width:100,align:'center'},
+        //     {field:'grade',title:'成绩',width:100,align:'center'},
+        //     {field:'operation',title:'操作',width:130,align:'center'},
+        //     {field:'sex',title:'性别',width:80,align:'center'},
+        //     {field:'age',title:'年龄',width:100,align:'center'},
+        // ]],
 
     });
     $('#cc').datagrid('clearSelections');
@@ -163,34 +163,86 @@ if (row) {
 
 
 
+function addTab(title, url){
+    if ($('#tt').tabs('exists', title)){
+        $('#tt').tabs('select', title);
+    } else {
+        var content = '<iframe scrolling="auto" frameborder="0"  src="'/Manager/centerStudent.html/'" style="width:100%;height:100%;"></iframe>';
+        $('#tt').tabs('add',{
+            title:title,
+            content:content,
+            closable:true
+        });
+    }
+}
 
 
 
 
 
 $(function () {
-    $('#tt').tree({
-        lines : true,
-        onLoadSuccess : function (node,data) {
-            if (data){
-                $(data).each(function (index,value) {
-                    if (this.state == 'closed'){
-                        $('#tt').tree('expendAll')
-                    }
-                })
-            }
-        },
-        onClick : function (node) {
-            if (node.url){
-                $('#tab').tabs('add',{
-                    title : node.text,
+    // var treeData = [{
+    //     text : "管理",
+    //     children : [{
+    //         text : "单一商品价格库存",
+    //         attributes : {
+    //
+    //             url : '<iframe width="100%" height="100%" frameborder="0"  src="jsp/queryPriceStock.jsp" style="width:100%;height:100%;margin:0px 0px;"></iframe>'
+    //         }
+    //     }, {
+    //         text : "单一商品价格库存2",
+    //         attributes : {
+    //             url : ''
+    //
+    //         }
+    //     }
+    //     ]
+    // }];
 
-                })
-            }
-        }
-    })
 
-    $('#tab').tabs({
+    // $('#tree').tree({
+    //     lines : true,
+    //     data : treeData,
+    //     lines : true,
+    //     onClick : function (node) {
+    //         if (node.attributes) {
+    //             Open(node.text, node.attributes.url);
+    //         }
+    //     },
+    //
+    //     onLoadSuccess : function (node,data) {
+    //         if (data){
+    //             $(data).each(function (index,value) {
+    //                 if (this.state == 'closed'){
+    //                     $('#tt').tree('expendAll')
+    //                 }
+    //             })
+    //         }
+    //     },
+    //     onClick : function (node) {
+    //         if (node.url){
+    //             $('#tabs').tabs('add',{
+    //                 title : node.text,
+    //
+    //             })
+    //         }
+    //     }
+    // })
+    //
+    // function Open(text, url) {
+    //     if ($("#tabs").tabs('exists', text)) {
+    //         $('#tabs').tabs('select', text);
+    //     } else {
+    //         $('#tabs').tabs('add', {
+    //             title : text,
+    //             closable : true,
+    //             content : url
+    //         });
+    //     }
+    // }
+
+
+    $('#tabs').tabs({
         border:false,
         plain:true,
 

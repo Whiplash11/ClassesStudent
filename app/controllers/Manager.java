@@ -179,4 +179,9 @@ public class Manager extends Controller {
 
     }
 
+    public static void centerStudent(){
+        List<Classes> allClasses = Classes.findAll();
+        List<Students> allStudents = Students.find(" order by sId ").fetch();
+        render(allStudents,allClasses);
+    }
 }
