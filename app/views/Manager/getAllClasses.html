@@ -110,11 +110,21 @@
             return data;
         }
     });
-
-
+    function addTab(title, url){
+        if ($('#tab').tabs('exists', title)){
+            $('#tab').tabs('select', title);
+        } else {
+            var content = '<iframe scrolling="auto" frameborder="0"  src="'+url+'" style="width:100%;height:100%;"></iframe>';
+            $('#tab').tabs('add',{
+                title:title,
+                content:content,
+                closable:true
+            });
+        }
+    }
 </script>
 
-<div id="box" style="width: 600px;height: 400px;">
+*{<div id="box" style="width: 600px;height: 400px;">}*
 
 *{    <div data-options="region:'north',title:'header',noheader:true" style="height: 70px;"></div>}*
 *{    <div data-options="region:'south',title:'footer',noheader:true" style="height: 35px;line-height: 30px;text-align: center;"><a href="###">联系</a></div>}*
@@ -155,45 +165,40 @@
 
 *{        </ul>}*
 *{    </div>}*
-    <div id="box" data-options="region:'center'" style="overflow:hidden">
-        <div id="tab" class="easyui-tabs" fit="true" >
-            <div title="班级列表" data-options="iconCls:'icon-search',closable:true,">
+*{    <div id="box" data-options="region:'center'" style="overflow:hidden">}*
+*{        <div id="tab" class="easyui-tabs" fit="true" >}*
+    <div id="cc">
             <!--            <button id="bt" >遍历学生</button>-->
-                <div id="ss">
-
-                    <a href="/Manager/deleteClasses" name="delete"class="easyui-linkbutton" data-options="iconCls:'icon-cut',plain:true" onclick="myFunction()">
-                        删除
-                    </a>
-                    <a id="aa" href="javascript:void(0)"  onclick="$('#hover'+'treewindow').window('open')">
-                        添加
-                    </a>
-                    <form>
-                        <input id="search" type="search" name="cId" class="easyui-searchbox" >
-                        <input id="search" type="submit"  class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" formaction="@{Manager.searchClasses()}" formmethod="post">
-                    </form>
-                </div>
-
-
-                <div id="cc"    >
-                    <table >
-                    #{list items:allClasses, as:'classes'}
-                        <tr >
-                            <td></td>
-                            <td>${classes.cId}</td>
-                            <td><a href="/Manager/getAllStudents?cId=${classes.cId}">${classes.cName}</a></td>
-                            <td >
-                                <a href="/Manager/deleteClasses?cId=${classes.cId}" name="delete"class="easyui-linkbutton" data-options="iconCls:'icon-cut',plain:true" onclick="return myFunction()">
-                                    删除
-                                </a>
-                            </td>
-                        </tr>
-                    #{/list}
-                    </table>
-                </div>
-            </div>
+        <div id="ss">
+            <a href="/Manager/deleteClasses" name="delete"class="easyui-linkbutton" data-options="iconCls:'icon-cut',plain:true" onclick="myFunction()">
+                删除
+            </a>
+            <a id="aa" href="javascript:void(0)"  onclick="$('#hover'+'treewindow').window('open')">
+                添加
+            </a>
+            <form>
+                <input id="search" type="search" name="cId" class="easyui-searchbox" >
+                <input id="search" type="submit"  class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" formaction="@{Manager.searchClasses()}" formmethod="post">
+            </form>
+        </div>
+        <div id="cc"    >
+            <table >
+            #{list items:allClasses, as:'classes'}
+                <tr >
+                    <td></td>
+                    <td>${classes.cId}</td>
+                    <td><a href="#" onclick="addTab('学生表','http://localhost:9000/Manager/centerStudent')">${classes.cName}</a></td>
+                    <td >
+                        <a href="/Manager/deleteClasses?cId=${classes.cId}" name="delete"class="easyui-linkbutton" data-options="iconCls:'icon-cut',plain:true" onclick="return myFunction()">
+                            删除
+                        </a>
+                    </td>
+                </tr>
+            #{/list}
+            </table>
         </div>
     </div>
-</div>
+*{</div>}*
 
 
 

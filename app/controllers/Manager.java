@@ -99,9 +99,9 @@ public class Manager extends Controller {
     public static void addStudents(){
         String studentId = params.get("studentId");
         String studentName = params.get("studentName");
-        String classId = params.get("classId") ;
+        String className = params.get("className") ;
         Students addStudent = new Students();
-        addStudent.cId = classId;
+        addStudent.cName = className;
         addStudent.sId = studentId;
         addStudent.sName = studentName ;
         addStudent.save();
@@ -148,20 +148,24 @@ public class Manager extends Controller {
     /**
      * 显示成绩
      */
-    public static void showGrade(Students sId){
-        String id = String.valueOf(sId);
-        Grade grade = Grade.findById(id);
-        renderArgs.put("grade",grade);
+    public static void showGrade(){
+        List<Students> students = Students.find(" order by sId ").fetch();
+        List<Grade> grade = Grade.findAll();
+        render(grade,students);
+    }
 
-//        String maths = params.get("matchs");
-//        String english = params.get("english");
-//        String chinese = params.get("chinese");
-//        String id = String.valueOf(sId);
-//        Grade grade = Grade.findById(id);
-//        grade.maths = maths;
-//        grade.english = english;
-//        grade.chinese = chinese;
-
+    public static void addGrade(Grade grade){
+        String sId = params.get("sId");
+        String chinese = params.get("chinese");
+        String english = params.get("english");
+        String maths = params.get("maths");
+        Grade addGrade = new Grade();
+        addGrade.sId = sId;
+        addGrade.chinese = chinese;
+        addGrade.english = english;
+        addGrade.maths = maths;
+        grade.save();
+        showGrade();
     }
 
 

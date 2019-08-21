@@ -8,9 +8,9 @@ import javax.persistence.*;
 @Table(name = "grade")
 public class Grade extends GenericModel {
     @Id
-    @OneToOne
-    @JoinColumn(name = "sid")
-    public Students sId;
+    @Column(name = "sid")
+
+    public String sId;
     @Column(name = "语文")
     public String chinese;
     @Column(name = "数学")
@@ -18,11 +18,13 @@ public class Grade extends GenericModel {
     @Column(name = "英语")
     public String english;
 
+
+
     public Grade() {
         super();
     }
 
-    public Grade(Students sId, String chinese,String maths,String english) {
+    public Grade(String sId, String chinese,String maths,String english) {
         super();
         this.sId = sId;
         this.chinese = chinese;

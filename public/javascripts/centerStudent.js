@@ -47,7 +47,8 @@ $(function () {
         // iconCls:'icon-man',
         border:false,
         rownumbers:true,//行号
-
+        onClickCell:onClickCell,
+        onAfterEdit:onAfterEdit,
         pagination:true,//分页
         // pageSize:10,
         // pageNumber:1,
@@ -69,18 +70,57 @@ $(function () {
             {field:'ck',checkbox:true},
             {field:'sId',title:'学生编号',width:100,align:'center'},
             {field: 'sName',title: '学生姓名',width:120,align:'center',editor:'text'},
-            {field:'cId',title:'班级编号',width:100,align:'center'},
-            {field:'grade',title:'成绩',width:100,align:'center'},
+            {field:'cId',title:'班级名称',width:100,align:'center',editor:'text'},
             {field:'operation',title:'操作',width:130,align:'center'},
-            {field:'sex',title:'性别',width:80,align:'center'},
-            {field:'age',title:'年龄',width:100,align:'center'},
+            {field:'sex',title:'性别',width:80,align:'center',editor:'text'},
+            {field:'age',title:'年龄',width:100,align:'center',editor:'text'},
         ]],
-
     });
+
+
     $('#cc').datagrid('clearSelections');
     $('#cc').datagrid({ loadFilter: pagerFilter }).datagrid({
         // url: '/FreshStudentMaintain/test'     //加载数据
     });
+
+
+    var editIndex = undefined;
+    function endEditing() {//该方法用于关闭上一个焦点的editing状态
+        if (editIndex == undefined) {
+            return true
+        }
+        if ($('#cc').datagrid('validateRow', editIndex)) {
+            $('#cc').datagrid('endEdit', editIndex);
+            editIndex = undefined;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    //点击单元格事件：
+    function onClickCell(index,field,value) {
+        if (endEditing()) {
+            if(field=="finalResult"){
+                $(this).datagrid('beginEdit', index);
+                var ed = $(this).datagrid('getEditor', {index:index,field:field});
+                $(ed.target).focus();
+            }
+            editIndex = index;
+        }
+        $('#cc').datagrid('onClickRow')
+    }
+//单元格失去焦点执行的方法
+    function onAfterEdit(index, row, changes) {
+        var updated = $('#tt').datagrid('getChanges', 'updated');
+        if (updated.length < 1) {
+            editRow = undefined;
+            $('#cc').datagrid('unselectAll');
+            return;
+        } else {
+            // 传值
+            submitForm(index, row, changes);
+        }
+    }
 
 // 分页数据的操作
     function pagerFilter(data) {
@@ -160,3 +200,19 @@ if (row) {
     var rowIndex = $('#grid_line').datagrid('getRowIndex', row);
     $('#grid_line').datagrid('deleteRow', rowIndex);
 }
+function addTab(title, url){
+    if ($('#tab').tabs('exists', title)){
+        $('#tab').tabs('select', title);
+    } else {
+        var content = '<iframe scrolling="auto" frameborder="0"  src="'+url+'" style="width:100%;height:100%;"></iframe>';
+        $('#tab').tabs('add',{
+            title:title,
+            content:content,
+            closable:true
+        });
+    }
+}
+
+
+
+

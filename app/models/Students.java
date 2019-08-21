@@ -16,7 +16,7 @@ public class Students extends GenericModel {
     @Column
     public String sName;
     @Column
-    public String cId;
+    public String cName;
 //    @ManyToOne (cascade = CascadeType.ALL)
 //    @JoinColumn(name = "class_id")
 //    public Classes cId;
@@ -26,11 +26,11 @@ public class Students extends GenericModel {
         super();
     }
 
-    public Students(String sId, String sName,String cId) {
+    public Students(String sId, String sName,String cName) {
         super();
         this.sId = sId;
         this.sName = sName;
-        this.cId = cId;
+        this.cName = cName;
     }
 
 }

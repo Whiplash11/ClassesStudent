@@ -6,25 +6,28 @@
 <script type="text/javascript" src="@{'/public/javascripts/jquery-1.6.4.min.js'}"></script>
 <script type="text/javascript" src="@{'/public/javascripts/jquery.easyui.min.js'}"></script>
 <script type="text/javascript" src="@{'/public/javascripts/easyui-lang-zh_CN.js'}"></script>
-<script>
-
+<script type="text/javascript">
     $(function () {
-
         $('#box').layout({
             fit : true,
         });
 
         $("#cc").datagrid({
             fit:true,
-            title:'学生列表',
-            iconCls:'icon-man',
+            // title:'学生列表',
+            // iconCls:'icon-man',
+            border:false,
             rownumbers:true,
             pagination:true,
             fitColumns:true,
             idField:'sId',
             striped:true,
-            singleSelect:true,
-
+            //singleSelect:true,
+            checkOnSelect:false,
+            selectOnCheck:true,
+            onSelectPage:function(pageNumber,pageSize){
+                $('#cc').datagrid('refresh','pageNumber='+pageNumber+'&pageSize=' +pageSize);
+            },
             columns:[[
                 {field:'ck',checkbox:true},
                 {field:'sId',title:'学生编号',width:120,align:'center'},
@@ -39,36 +42,64 @@
 
             toolbar:'#aa',
         });
-
-
     })
+
+    $('#cc').datagrid('clearSelections');
+    $('#cc').datagrid({ loadFilter: pagerFilter }).datagrid({
+        // url: '/FreshStudentMaintain/test'     //加载数据
+    });
+    function pagerFilter(data) {
+        if (typeof data.length == 'number' && typeof data.splice == 'function') {   // is array
+            data = {
+                total: data.length,
+                rows: data
+            }
+        }
+        var dg = $(this);
+        var opts = dg.datagrid('options');
+        var pager = dg.datagrid('getPager');
+        pager.pagination({
+            onSelectPage: function (pageNum, pageSize) {
+                opts.pageNumber = pageNum;
+                opts.pageSize = pageSize;
+                pager.pagination('refresh', {
+                    pageNumber: pageNum,
+                    pageSize: pageSize
+                });
+                dg.datagrid('loadData', data);
+            }
+        });
+        if (!data.originalRows) {
+            data.originalRows = (data.rows);
+        }
+        var start = (opts.pageNumber - 1) * parseInt(opts.pageSize);
+        var end = start + parseInt(opts.pageSize);
+        data.rows = (data.originalRows.slice(start, end));
+        return data;
+    }
 </script>
-<div id="box" style="width: 600px;height: 400px;">
-    <div data-options="region:'north',title:'header',noheader:true" style="height: 70px;"></div>
-    <div data-options="region:'south',title:'footer',noheader:true" style="height: 35px;line-height: 30px;text-align: center;"><a href="###">联系</a></div>
-    <div data-options="region:'west',title:'导航',split:true" style="width: 180px; padding: 10px;"></div>
-    <div id="box" data-options="region:'center'" style="overflow:hidden">
-
-
-        <div id="cc" name="dept" value="01">
-
-            <table >
-            #{list items:searchStudent, as:'searchStudent'}
-                <tr>
-                    <td></td>
-                    <td>${searchStudent?.sId}</td>
-                    <td>${searchStudent?.sName}</td>
-                    <td>${searchStudent?.cId}</td>
-                    <td>
-                        <a href="/Manager/intoUpdateStudents?sId=${searchStudent.sId}" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">修改</a>
-                        <a href="/Manager/deleteStudents?sId=${searchStudent.sId}" class="easyui-linkbutton" data-options="iconCls:'icon-cut',plain:true">删除</a>
-                    </td>
-                </tr>
-            #{/list}
-                <a id="ss" href="@{Manager.getAllStudents()}" class="easyui-linkbutton" data-options="iconCls:'icon-back',plain:true">返回</a>
-            </table>
-        </div>
-
-
+<div id="cc" >
+    <div >
+        <a id="aa" href="@{Manager.centerStudent()}" class="easyui-linkbutton"
+           data-options="iconCls:'icon-redo'," style="float: right;background: #fff">
+            返回学生
+        </a>
+    </div>
+    <div id="cc">
+        <table id="tt">
+        #{list items:searchStudent, as:'searchStudent'}
+            <tr>
+                <td></td>
+                <td>${searchStudent?.sId}</td>
+                <td>${searchStudent?.sName}</td>
+                <td>${searchStudent?.cId}</td>
+                <td>
+                    <a href="/Manager/intoUpdateStudents?sId=${searchStudent.sId}" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">修改</a>
+                    <a href="/Manager/deleteStudents?sId=${searchStudent.sId}" class="easyui-linkbutton" data-options="iconCls:'icon-cut',plain:true">删除</a>
+                </td>
+            </tr>
+        #{/list}
+        </table>
     </div>
 </div>
+

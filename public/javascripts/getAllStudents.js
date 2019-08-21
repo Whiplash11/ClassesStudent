@@ -149,7 +149,7 @@ $(function () {
     //     alert('Item ID:'+row.sId+"\nPrice:"+row.listprice);
     // }
 
-
+    $('#north').
 
 
     parent.$('#ll').panel('refresh',url)
@@ -163,12 +163,14 @@ if (row) {
 
 
 
+
+
 function addTab(title, url){
-    if ($('#tt').tabs('exists', title)){
-        $('#tt').tabs('select', title);
+    if ($('#tab').tabs('exists', title)){
+        $('#tab').tabs('select', title);
     } else {
-        var content = '<iframe scrolling="auto" frameborder="0"  src="'/Manager/centerStudent.html/'" style="width:100%;height:100%;"></iframe>';
-        $('#tt').tabs('add',{
+        var content = '<iframe scrolling="auto" frameborder="0"  src="'+url+'" style="width:100%;height:100%;"></iframe>';
+        $('#tab').tabs('add',{
             title:title,
             content:content,
             closable:true
@@ -177,10 +179,14 @@ function addTab(title, url){
 }
 
 
-
-
-
 $(function () {
+
+    $('#tab').tabs({
+        border:false,
+        plain:true,
+
+    })
+
     // var treeData = [{
     //     text : "管理",
     //     children : [{
@@ -240,13 +246,6 @@ $(function () {
     //         });
     //     }
     // }
-
-
-    $('#tabs').tabs({
-        border:false,
-        plain:true,
-
-    })
 })
 
 

@@ -1,0 +1,66 @@
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/public/jquery-easyui-1.7.0/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/public/jquery-easyui-1.7.0/themes/icon.css">
+    <script type="text/javascript" src="/public/jquery-easyui-1.7.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/public/jquery-easyui-1.7.0/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="@{'/public/javascripts/easyui-lang-zh_CN.js'}"></script>
+    <script type="text/javascript" src="@{'/public/javascripts/showGrade.js'}"></script>
+</head>
+
+<div  id="cc">
+工具菜单
+    <div id="ss" >
+*{        <a  href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="$('#hovers'+'treewindow').window('open')">}*
+*{            编辑}*
+*{        </a>}*
+*{        <a class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" href="javascript:void(0)"  onclick="$('#hover'+'treewindow').window('open')" >}*
+*{            添加}*
+*{        </a>}*
+*{        <a id="aaa" href="@{Manager.centerStudent()}" class="easyui-linkbutton"}*
+*{           data-options="iconCls:'icon-redo',plain:true" style="float: right">}*
+*{            返回学生}*
+*{        </a>}*
+*{        <form>}*
+*{            <input id="searchBar" type="search" name="sId" class="easyui-searchbox" >}*
+*{            <input id="search" type="submit"  class="easyui-linkbutton" data-options="plain:true" formaction="@{Manager.searchStudents()}" formmethod="post">}*
+*{        </form>}*
+        <a href="javascript:void(0)" ></a>
+
+    </div>
+
+数据表格
+    <div id="cc" >
+        <table id="tt" >
+        #{list items:grade, as:'grade'}
+            <tr >
+                <td></td>
+                <td>${grade?.sId}</td>
+                <td >${grade?.chinese}</td>
+                <td >${grade?.english}</td>
+                <td>${grade?.maths}</td>
+                <td>
+                    <a  class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true"  onclick="$('#hovers'+'treewindow').window('open')">
+                        编辑
+                    </a>
+                </td>
+            </tr>
+        #{/list}
+        </table>
+    </div>
+</div>
+
+
+    *{添加}*
+    <div id="hovertreewindow" class="easyui-window" title="添加班级" closed="true"style="width:400px;padding:10px 60px 20px 60px;">
+        <form action="@{Manager.addGrade()}" method="post">
+            学号：<input type="text" name="grade.sId" class="easyui-textbox" data-options="required:true"><br>
+            语文：<input type="text" name="grade.chinese" class="easyui-textbox" data-options="required:true"><br>
+            英语：<input type="text" name="grade.english" class="easyui-textbox" data-options="required:true"><br>
+            数学：<input type="text" name="grade.maths" class="easyui-textbox" data-options="required:true"><br>
+            <div style="text-align:center;padding:5px">
+                <input type="submit" value="保存" class="easyui-linkbutton" data-options="plain:true">
+            </div>
+        </form>
+    </div>
+

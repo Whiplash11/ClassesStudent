@@ -11,12 +11,7 @@
     <script type="text/javascript" src="@{'/public/javascripts/centerStudent.js'}"></script>
 </head>
 <body>
-
-*{<div id="box"  data-options="region:'center'" style="overflow:hidden" >}*
-
-    <div id="tab" class="easyui-tabs" fit="true">
-
-        <div title="学生列表" data-options="iconCls:'icon-man',closable:true," >
+        <div  id="cc">
         *{工具菜单}*
             <div id="ss" >
                 <a  href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="$('#hovers'+'treewindow').window('open')">
@@ -26,11 +21,11 @@
                    href="/Manager/deleteStudents" id="grid_line">
                     删除
                 </a>
-                <a id="aa" href="javascript:void(0)"  onclick="$('#hover'+'treewindow').window('open')">
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" href="javascript:void(0)"  onclick="$('#hover'+'treewindow').window('open')" >
                     添加
                 </a>
                 <a id="aaa" href="@{Manager.getAllClasses()}" class="easyui-linkbutton"
-                   data-options="iconCls:'icon-back',plain:true" style="float: right">
+                   data-options="iconCls:'icon-redo',plain:true" style="float: right">
                     返回班级
                 </a>
                 <form>
@@ -50,8 +45,8 @@
                         <td></td>
                         <td >${students.sId}</td>
                         <td >${students.sName}</td>
-                        <td>${students.cId}</td>
-                        <td><a href="#" onclick="$('#grade').window('open')">成绩</a></td>
+                        <td>${students.cName}</td>
+
                         <td>
                             <a  class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true"  onclick="$('#hovers'+'treewindow').window('open')">
                                 编辑
@@ -59,12 +54,14 @@
                             <a class="easyui-linkbutton" data-options="iconCls:'icon-cut',plain:true"name="delete" href="/Manager/deleteStudents?sId=${students.sId}" onclick="myFunction()">
                                 删除
                             </a>
+*{                            <a href="/Manager/deleteStudents?sId=${students.sId}"  onclick="addTab('学生表','http://localhost:9000/Manager/getAllStudents')">}*
+*{                                删除}*
+*{                            </a>}*
                         </td>
                         <td></td>
                         <td></td>
                     </tr>
                 #{/list}
-
                 </table>
 
 
@@ -73,7 +70,7 @@
                     <form  action="@{Manager.addStudents()}" method="post" >
                         学生编号：<input  id="sId" type="text" name="studentId"  class="easyui-textbox" data-options="required:true"><br>
                         学生姓名：<input  id="sName" type="text" name="studentName" class="easyui-textbox" data-options="required:true"><br>
-                        班级编号：<input type="text" name="classId" class="easyui-textbox" data-options="required:true"><br>
+                        班级名称：<input type="text" name="className" class="easyui-textbox" data-options="required:true"><br>
                         <div style="text-align:center">
                             <input type="submit" value="保存" class="easyui-linkbutton"data-options="plain:true" onclick="fun1()">
                         *{                        <input type="button" value="返回" formaction="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true" onclick="$('#hovertreewindow').window('close')">}*
@@ -90,7 +87,7 @@
                             <tr>
                                 <td>学生编号</td>
                                 <td>
-                                ${allStudents.sId}
+                                    ${allStudents.sId}
                                 </td>
                             </tr>
                             <tr>
@@ -101,10 +98,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>班级编号</td>
+                                <td>班级名称</td>
                                 <td>
                                     <input type="hidden" value="${allStudents.sId}" name="updateStudent.sId"/>
-                                    <input type="text" value="${allStudents.cId}" name="updateStudent.cId" class="easyui-textbox" data-options="required:true"/>
+                                    <input type="text" value="${allStudents.cName}" name="updateStudent.cId" class="easyui-textbox" data-options="required:true"/>
                                 </td>
                             </tr>
                         </table>
@@ -142,7 +139,6 @@
                 </div>
             </div>
         </div>
-    </div>
-*{</div>}*
+
 </body>
 </html>
