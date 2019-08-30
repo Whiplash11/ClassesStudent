@@ -4,29 +4,67 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="/public/jquery-easyui-1.7.0/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_1370388_a7pf8axyu55.css">
     <link rel="stylesheet" type="text/css" href="/public/jquery-easyui-1.7.0/themes/icon.css">
     <script type="text/javascript" src="/public/jquery-easyui-1.7.0/jquery.min.js"></script>
     <script type="text/javascript" src="/public/jquery-easyui-1.7.0/jquery.easyui.min.js"></script>
+    <script src="//at.alicdn.com/t/font_1370388_a7pf8axyu55.js"></script>
     <script type="text/javascript" src="@{'/public/javascripts/easyui-lang-zh_CN.js'}"></script>
     <script type="text/javascript" src="@{'/public/javascripts/centerStudent.js'}"></script>
+    <style>
+        @font-face {
+            font-family: 'iconfont';  /* project id 1370388 */
+            src: url('//at.alicdn.com/t/font_1370388_qky7z011bz.eot');
+            src: url('//at.alicdn.com/t/font_1370388_qky7z011bz.eot?#iefix') format('embedded-opentype'),
+            url('//at.alicdn.com/t/font_1370388_qky7z011bz.woff2') format('woff2'),
+            url('//at.alicdn.com/t/font_1370388_qky7z011bz.woff') format('woff'),
+            url('//at.alicdn.com/t/font_1370388_qky7z011bz.ttf') format('truetype'),
+            url('//at.alicdn.com/t/font_1370388_qky7z011bz.svg#iconfont') format('svg')
+        }
+        .iconfont {
+            font-family: "iconfont" !important;
+            font-size: 16px;
+            font-style: normal;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .icon {
+            width: 1em;
+            height: 1em;
+            vertical-align: -0.15em;
+            fill: currentColor;
+            overflow: hidden;
+        }
+
+        input:focus{
+            border-color: #66afe9;
+            outline: 0;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)
+        }
+    </style>
 </head>
 <body>
         <div  id="cc">
         *{工具菜单}*
             <div id="ss" >
-                <a  href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="$('#hovers'+'treewindow').window('open')">
-                    编辑
+                <a  href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true" onclick="$('#hovers'+'treewindow').window('open')">
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-icon_edit"></use>
+                    </svg>编辑
                 </a>
-                <a class="easyui-linkbutton" data-options="iconCls:'icon-cut',plain:true"name="delete"
+                <a id="" class="easyui-linkbutton" data-options="plain:true"name="delete"
                    href="/Manager/deleteStudents" id="grid_line">
-                    删除
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-icon_delete"></use>
+                    </svg>删除
                 </a>
-                <a class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" href="javascript:void(0)"  onclick="$('#hover'+'treewindow').window('open')" >
-                    添加
+                <a class="easyui-linkbutton" data-options="plain:true" href="javascript:void(0)"  onclick="$('#hover'+'treewindow').window('open')" >
+                    <span class="iconfont icon-userplus-fill"></span>添加
                 </a>
                 <a id="aaa" href="@{Manager.getAllClasses()}" class="easyui-linkbutton"
-                   data-options="iconCls:'icon-redo',plain:true" style="float: right">
-                    返回班级
+                   data-options="plain:true" style="float: right">
+                    <span class="iconfont icon-fanhui"></span>返回班级
                 </a>
                 <form>
 
@@ -46,20 +84,20 @@
                         <td >${students.sId}</td>
                         <td >${students.sName}</td>
                         <td>${students.cName}</td>
-
+                        <td></td>
+                        <td></td>
                         <td>
-                            <a  class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true"  onclick="$('#hovers'+'treewindow').window('open')">
-                                编辑
+                            <a  class="easyui-linkbutton" data-options="plain:true"  onclick="$('#hovers'+'treewindow').window('open')">
+                                <svg class="icon" aria-hidden="true">
+                                    <use xlink:href="#icon-icon_edit"></use>
+                                </svg>编辑
                             </a>
-                            <a class="easyui-linkbutton" data-options="iconCls:'icon-cut',plain:true"name="delete" href="/Manager/deleteStudents?sId=${students.sId}" onclick="myFunction()">
-                                删除
+                            <a class="easyui-linkbutton" data-options="plain:true"name="delete" href="/Manager/deleteStudents?sId=${students.sId}" onclick="myFunction()">
+                                <svg class="icon" aria-hidden="true">
+                                    <use xlink:href="#icon-icon_delete"></use>
+                                </svg>删除
                             </a>
-*{                            <a href="/Manager/deleteStudents?sId=${students.sId}"  onclick="addTab('学生表','http://localhost:9000/Manager/getAllStudents')">}*
-*{                                删除}*
-*{                            </a>}*
                         </td>
-                        <td></td>
-                        <td></td>
                     </tr>
                 #{/list}
                 </table>
@@ -82,61 +120,35 @@
 
             *{            信息修改弹窗}*
                 <div id="hoverstreewindow" class="easyui-window" title="编辑信息" closed="true" data-options="iconCls:'icon-edit'" style="width:400px;padding:10px 60px 20px 60px;">
-                    <form >
+                    <form formaction="@{Manager.updateStudentsSuccess()}" formmethod="get">
                         <table >
                             <tr>
                                 <td>学生编号</td>
                                 <td>
-                                    ${allStudents.sId}
+                                    ${updateStudent?.sId}
                                 </td>
                             </tr>
                             <tr>
                                 <td>学生姓名</td>
                                 <td>
-                                    <input type="hidden" value="${allStudents.sId}" name="updateStudent.sId" />
-                                    <input type="text" value="${allStudents.sName}" name="updateStudent.sName" class="easyui-textbox" data-options="required:true"/>
+                                    <input type="hidden" value="${updateStudent?.sId}" name="updateStudent.sId" />
+                                    <input type="text" value="${updateStudent?.sName}" name="updateStudent.sName" class="easyui-textbox" data-options="required:true"/>
                                 </td>
                             </tr>
                             <tr>
                                 <td>班级名称</td>
                                 <td>
-                                    <input type="hidden" value="${allStudents.sId}" name="updateStudent.sId"/>
-                                    <input type="text" value="${allStudents.cName}" name="updateStudent.cId" class="easyui-textbox" data-options="required:true"/>
+                                    <input type="hidden" value="${updateStudent?.sId}" name="updateStudent.sId"/>
+                                    <input type="text" value="${updateStudent?.cName}" name="updateStudent.cName" class="easyui-textbox" data-options="required:true"/>
                                 </td>
                             </tr>
                         </table>
                         <div style="text-align:center">
-                            <input type="submit" value="保存" class="easyui-linkbutton" data-options="plain:true" formaction="@{Manager.updateStudentsSuccess()}" formmethod="get">
-                        *{                        <input type="button" value="返回" formaction="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true" onclick="$('#hoverstreewindow').window('close')">}*
+                            <input type="submit" value="保存" class="easyui-linkbutton" data-options="plain:true" >
                         </div>
                     </form>
                 </div>
 
-
-
-
-            *{            成绩弹窗}*
-                <div id="grade" class="easyui-window"  closed="true" style="width:400px;padding:10px 60px 20px 60px;">
-                    <form>
-                        <table>
-                            <tr>
-                                <td>语文</td>
-                                <td><input type="text" class="easyui-textbox" name="chinese" value="${}"></td>
-                            </tr>
-                            <tr>
-                                <td>英语</td>
-                                <td><input type="text" class="easyui-textbox" name="English" value="${}"></td>
-                            </tr>
-                            <tr>
-                                <td>数学</td>
-                                <td><input type="text" class="easyui-textbox" name="maths" value="${}"></td>
-                            </tr>
-                        </table>
-                        <div style="text-align:center">
-                            <input type="submit" value="保存" class="easyui-linkbutton" data-options="plain:true" formaction="@{Manager.updateGradeSuccess ()}" formmethod="get">
-                        </div>
-                    </form>
-                </div>
             </div>
         </div>
 

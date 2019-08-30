@@ -66,14 +66,51 @@ $(function () {
         onClickRow: function (rowIndex, rowData) {
             $(this).datagrid('unselectRow', rowIndex);
         },
+
+        // toolbar:
+        //     [{
+        //         text:'添加数据',
+        //         iconCls:'icon-add',
+        //         handler:function(){
+        //             $("#cc").datagrid("insertRow",{
+        //                 index:0,
+        //                 row:{}
+        //             });
+        //             $("#cc").datagrid("beginEdit",0);
+        //
+        //         }
+        //     },
+        //         {
+        //             text:'编辑数据',
+        //             iconCls:'icon-edit',
+        //             handler:function(){
+        //                 var hasSelect = $("#cc").datagrid("getSelections");
+        //                 if(hasSelect.length == 1){
+        //                     //alert(hasSelect[0].name);
+        //                     var row = hasSelect[0];
+        //                     rowNumber = $("#cc").datagrid("getRowIndex",row);
+        //                     $("#cc").datagrid("beginEdit",rowNumber);
+        //                 }
+        //             }
+        //         },
+        //         {
+        //             text:'保存修改',
+        //             iconCls:'icon-save',
+        //
+        //             handler:function(){
+        //                 $("#cc").datagrid("endEdit",rowNumber);
+        //             }
+        //         }],
+
+
         columns:[[
             {field:'ck',checkbox:true},
             {field:'sId',title:'学生编号',width:100,align:'center'},
             {field: 'sName',title: '学生姓名',width:120,align:'center',editor:'text'},
             {field:'cId',title:'班级名称',width:100,align:'center',editor:'text'},
-            {field:'operation',title:'操作',width:130,align:'center'},
             {field:'sex',title:'性别',width:80,align:'center',editor:'text'},
             {field:'age',title:'年龄',width:100,align:'center',editor:'text'},
+            {field:'operation',title:'操作',width:130,align:'center'},
         ]],
     });
 
@@ -212,7 +249,5 @@ function addTab(title, url){
         });
     }
 }
-
-
 
 

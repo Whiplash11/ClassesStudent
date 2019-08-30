@@ -84,6 +84,11 @@ public class Manager extends Controller {
         render(searchStudent);
     }
 
+    public static void centerStudent(){
+        List<Classes> allClasses = Classes.findAll();
+        List<Students> allStudents = Students.find(" order by sId ").fetch();
+        render(allStudents,allClasses);
+    }
 
     /**
      * 进入添加学生
@@ -103,9 +108,9 @@ public class Manager extends Controller {
         Students addStudent = new Students();
         addStudent.cName = className;
         addStudent.sId = studentId;
-        addStudent.sName = studentName ;
+        addStudent.sName = studentName;
         addStudent.save();
-        getAllStudents();
+        centerStudent();
     }
 
     /**
@@ -114,21 +119,21 @@ public class Manager extends Controller {
      */
     public static void intoUpdateStudents(String sId){
         String id = String.valueOf(sId);
-        Students updateStudent = studentDao.getStudentById(id);
+        Students updateStudent = Students.findById(id);
         renderArgs.put("updateStudent",updateStudent);
-        render();
+
     }
 
     /**
      * 修改成功
      * @param
      */
-    public static void updateStudentsSuccess(){
-        String sId = params.get("sId");
-        Students students = new Students();
-        Students.find(sId);
-        students.sId=sId;
-        students.save();
+    public static void updateStudentsSuccess(Students students){
+//        String sId = params.get("sId");
+//        Students students = new Students();
+//        Students.find(sId);
+//        students.sId=sId;
+        studentDao.updateStudents(students);
         getAllStudents();
     }
 
@@ -141,7 +146,7 @@ public class Manager extends Controller {
         Students deleteStudent = studentDao.getStudentById(id);
         boolean x;
         studentDao.deleteStudents(deleteStudent);
-        getAllStudents();
+        centerStudent();
     }
 
 
@@ -169,23 +174,12 @@ public class Manager extends Controller {
     }
 
 
-    public static void updateGradeSuccess(){
-        String sId = params.get("sId");
-
-        Grade grade = new Grade();
+    public static void updateGradeSuccess(String sId){
         String id = String.valueOf(sId);
-        grade = Grade.findById(id);
-        Grade.find(sId);
-        Students students = new Students();
-        students.sId=sId;
-
+        Grade grade =  Grade.findById(id);
         grade.save();
-
+        showGrade();
     }
 
-    public static void centerStudent(){
-        List<Classes> allClasses = Classes.findAll();
-        List<Students> allStudents = Students.find(" order by sId ").fetch();
-        render(allStudents,allClasses);
-    }
+
 }

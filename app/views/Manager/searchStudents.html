@@ -1,6 +1,3 @@
-*{#{extends 'main.html'/}}*
-*{#{set title = 'Home'/}}*
-
 <link  rel="stylesheet"type="text/css" href="@{'/public/stylesheets/easyui.css'}">
 <link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/icon.css'}">
 <script type="text/javascript" src="@{'/public/javascripts/jquery-1.6.4.min.js'}"></script>
@@ -92,7 +89,7 @@
                 <td></td>
                 <td>${searchStudent?.sId}</td>
                 <td>${searchStudent?.sName}</td>
-                <td>${searchStudent?.cId}</td>
+                <td>${searchStudent?.cName}</td>
                 <td>
                     <a href="/Manager/intoUpdateStudents?sId=${searchStudent.sId}" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">修改</a>
                     <a href="/Manager/deleteStudents?sId=${searchStudent.sId}" class="easyui-linkbutton" data-options="iconCls:'icon-cut',plain:true">删除</a>

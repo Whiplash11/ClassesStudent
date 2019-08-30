@@ -2,30 +2,71 @@
 *{#{set title = 'Home'/}}*
 
 <link rel="stylesheet" type="text/css" href="/public/jquery-easyui-1.7.0/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_1370388_jjqex1aftp.css">
 <link rel="stylesheet" type="text/css" href="/public/jquery-easyui-1.7.0/themes/icon.css">
 <script type="text/javascript" src="/public/jquery-easyui-1.7.0/jquery.min.js"></script>
 <script type="text/javascript" src="/public/jquery-easyui-1.7.0/jquery.easyui.min.js"></script>
+<script src="//at.alicdn.com/t/font_1370388_jjqex1aftp.js"></script>
 <script type="text/javascript" src="@{'/public/javascripts/easyui-lang-zh_CN.js'}"></script>
 <script type="text/javascript" src="@{'/public/javascripts/getAllStudents.js'}"></script>
 <style>
 
-</style>
-<script type="text/javascript">
+a:hover{
+    color: #000000;
+    font-size: 20px;
+}
 
-</script>
+a:visited{
+    color: #013fc2;
+}
+
+/*去掉超链接下划线*/
+a{ text-decoration:none}
+
+@font-face {
+    font-family: 'iconfont';  /* project id 1370388 */
+    src: url('//at.alicdn.com/t/font_1370388_jjqex1aftp.eot');
+    src: url('//at.alicdn.com/t/font_1370388_jjqex1aftp.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_1370388_jjqex1aftp.woff2') format('woff2'),
+    url('//at.alicdn.com/t/font_1370388_jjqex1aftp.woff') format('woff'),
+    url('//at.alicdn.com/t/font_1370388_jjqex1aftp.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_1370388_jjqex1aftp.svg#iconfont') format('svg');
+}
+
+.iconfont {
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}
+</style>
+
 <div id="box" style="">
 
-    <div data-options="region:'south',title:'footer',noheader:true" style="height: 35px;line-height: 30px;text-align: center;background: #DCDCDC">
+    <div  data-options="region:'south',title:'footer',noheader:true" style="height: 35px;line-height: 30px;text-align: center;background: #DCDCDC">
         <a href="#" >联系我们</a>
     </div>
-    <div id="ll" data-options="region:'west',title:'管理操作栏',split:true" style="width: 250px; padding: 10px; ">
+    <div id="ll"class="easyui-accordion" data-options="region:'west',title:'管理操作栏'," style="width: 250px; padding: 10px; ">
         <ul id="tt" class="easyui-tree">
+            <span class="iconfont icon-wenjianjia"></span>
             <li>
-                <span data-options="iconCls:'icon-edit'">管理</span>
-                    <ul>
-                        <li>
-                            <span>
+                <span >
+
+                    管理
+                </span>
+                    <ul >
+                        <li >
+                            <span >
                                 <a href="#"  onclick="addTab('班级表','http://localhost:9000/Manager/getAllClasses')">
+                                    <span ></span>
                                     班级列表
                                 </a>
                             </span>
@@ -36,7 +77,6 @@
                             #{list items:allClasses, as:'classes'}
                                 <li><span>
                                     <a href="#" onclick="addTab('学生表','http://localhost:9000/Manager/centerStudent')">${classes.cName}</a>
-*{                                    <a href="/Manager/centerStudent?cId=${classes.cId}" target="show">${classes.cName}</a>}*
                                 </span></li>
                             #{/list}
                             </ul>
@@ -62,12 +102,47 @@
                     </ul>
                 </li>
             </ul>
+*{    <div title="About" data-options="iconCls:'icon-c'" style="overflow:auto;padding:10px;width: 100%;background-color:#fff">}*
+*{        <a href="#"  onclick="addTab('班级表','http://localhost:9000/Manager/getAllClasses')">}*
+*{            班级列表}*
+*{        </a>}*
+*{    </div>}*
+*{    <div title="Help" data-options="iconCls:'icon-help'" style="padding:10px;">}*
+*{        <p>The accordion allows you to provide multiple panels and display one or more at a time. Each panel has built-in support for expanding and collapsing. Clicking on a panel header to expand or collapse that panel body. The panel content can be loaded via ajax by specifying a 'href' property. Users can define a panel to be selected. If it is not specified, then the first panel is taken by default.</p>}*
+*{    </div>}*
+*{    <div title="TreeMenu" data-options="iconCls:'icon-search'" style="padding:10px;">}*
+*{        <ul class="easyui-tree">}*
+*{            <li>}*
+*{                <span>Foods</span>}*
+*{                <ul>}*
+*{                    <li>}*
+*{                        <span>Fruits</span>}*
+*{                        <ul>}*
+*{                            <li>apple</li>}*
+*{                            <li>orange</li>}*
+*{                        </ul>}*
+*{                    </li>}*
+*{                    <li>}*
+*{                        <span>Vegetables</span>}*
+*{                        <ul>}*
+*{                            <li>tomato</li>}*
+*{                            <li>carrot</li>}*
+*{                            <li>cabbage</li>}*
+*{                            <li>potato</li>}*
+*{                            <li>lettuce</li>}*
+*{                        </ul>}*
+*{                    </li>}*
+*{                </ul>}*
+*{            </li>}*
+*{        </ul>}*
+*{    </div>}*
+
     </div>
-    <div id="north" data-options="region:'north',title:'header',noheader:true" style="height: 70px;background-color: #F0F8FF">
-        <div style="color:#0081C2;" >
-            <h2>后台管理</h2>
-        </div>
-    </div>
+*{    <div id="north" data-options="region:'north',title:'header',noheader:true" style="height: 70px;background-color: #F0F8FF">}*
+*{        <div style="color:#0081C2;" >}*
+*{            <h2>后台管理</h2>}*
+*{        </div>}*
+*{    </div>}*
     <div id="box"  data-options="region:'center'" style="overflow:hidden" >
 
         <div id="tab" class="easyui-tabs" fit="true">
@@ -77,139 +152,6 @@
                 </div>
             </div>
         </div>
-*{        <div id="tt" class="easyui-tabs"  fit="true">}*
-*{            <div title="首页" data-options="closable:true">首页</div>}*
-*{        </div>}*
-*{        <iframe src="@{Manager.centerStudent()}"  name="show" frameborder="0" style="width: 100%;height: 100%"></iframe>}*
-*{        <div id="tab" class="easyui-tabs" fit="true">}*
-
-*{            <div title="学生列表" data-options="iconCls:'icon-man',closable:true," >}*
-*{                }**{工具菜单}*
-*{                <div id="ss" >}*
-*{                    <a  href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="$('#hovers'+'treewindow').window('open')">}*
-*{                        编辑}*
-*{                    </a>}*
-*{                    <a class="easyui-linkbutton" data-options="iconCls:'icon-cut',plain:true"name="delete"}*
-*{                       href="/Manager/deleteStudents" id="grid_line">}*
-*{                        删除}*
-*{                    </a>}*
-*{                    <a id="aa" href="javascript:void(0)"  onclick="$('#hover'+'treewindow').window('open')">}*
-*{                        添加}*
-*{                    </a>}*
-*{                    <a id="aaa" href="@{Manager.getAllClasses()}" class="easyui-linkbutton"}*
-*{                       data-options="iconCls:'icon-back',plain:true" style="float: right">}*
-*{                        返回班级}*
-*{                    </a>}*
-*{                    <form>}*
-
-*{                        <input id="searchBar" type="search" name="sId" class="easyui-searchbox" >}*
-*{                        <input id="search" type="submit"  class="easyui-linkbutton" data-options="plain:true" formaction="@{Manager.searchStudents()}" formmethod="post">}*
-*{                    </form>}*
-*{                </div>}*
-
-
-
-*{                    }**{数据表格 }*
-*{                <div id="cc" >}*
-*{                    <table id="tt" >}*
-*{                    #{list items:allStudents, as:'students'}}*
-*{                        <tr >}*
-*{                            <td></td>}*
-*{                            <td >${students.sId}</td>}*
-*{                            <td >${students.sName}</td>}*
-*{                            <td>${students.cId}</td>}*
-*{                            <td><a href="#" onclick="$('#grade').window('open')">成绩</a></td>}*
-*{                            <td>}*
-*{                                <a  class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true"  onclick="$('#hovers'+'treewindow').window('open')">}*
-*{                                    编辑}*
-*{                                </a>}*
-*{                                <a class="easyui-linkbutton" data-options="iconCls:'icon-cut',plain:true"name="delete" href="/Manager/deleteStudents?sId=${students.sId}" onclick="myFunction()">}*
-*{                                    删除}*
-*{                                </a>}*
-*{                            </td>}*
-*{                            <td></td>}*
-*{                            <td></td>}*
-*{                        </tr>}*
-*{                    #{/list}}*
-
-*{                    </table>}*
-
-
-*{        }**{            添加学生弹窗}*
-*{                    <div  id="hovertreewindow"  class="easyui-window" closed="true" title="添加学生"style="width:400px;padding:10px 60px 20px 60px;">}*
-*{                        <form  action="@{Manager.addStudents()}" method="post" >}*
-*{                            学生编号：<input  id="sId" type="text" name="studentId"  class="easyui-textbox" data-options="required:true"><br>}*
-*{                            学生姓名：<input  id="sName" type="text" name="studentName" class="easyui-textbox" data-options="required:true"><br>}*
-*{                            班级编号：<input type="text" name="classId" class="easyui-textbox" data-options="required:true"><br>}*
-*{                            <div style="text-align:center">}*
-*{                                <input type="submit" value="保存" class="easyui-linkbutton"data-options="plain:true" onclick="fun1()">}*
-*{        }**{                        <input type="button" value="返回" formaction="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true" onclick="$('#hovertreewindow').window('close')">}*
-*{                            </div>}*
-*{                        </form>}*
-*{                    </div>}*
-
-
-
-*{        }**{            信息修改弹窗}*
-*{                    <div id="hoverstreewindow" class="easyui-window" title="编辑信息" closed="true" data-options="iconCls:'icon-edit'" style="width:400px;padding:10px 60px 20px 60px;">}*
-*{                        <form >}*
-*{                            <table >}*
-*{                                <tr>}*
-*{                                    <td>学生编号</td>}*
-*{                                    <td>}*
-*{                                    ${allStudents.sId}}*
-*{                                    </td>}*
-*{                                </tr>}*
-*{                                <tr>}*
-*{                                    <td>学生姓名</td>}*
-*{                                    <td>}*
-*{                                        <input type="hidden" value="${allStudents.sId}" name="updateStudent.sId" />}*
-*{                                        <input type="text" value="${allStudents.sName}" name="updateStudent.sName" class="easyui-textbox" data-options="required:true"/>}*
-*{                                    </td>}*
-*{                                </tr>}*
-*{                                <tr>}*
-*{                                    <td>班级编号</td>}*
-*{                                    <td>}*
-*{                                        <input type="hidden" value="${allStudents.sId}" name="updateStudent.sId"/>}*
-*{                                        <input type="text" value="${allStudents.cId}" name="updateStudent.cId" class="easyui-textbox" data-options="required:true"/>}*
-*{                                    </td>}*
-*{                                </tr>}*
-*{                            </table>}*
-*{                            <div style="text-align:center">}*
-*{                                <input type="submit" value="保存" class="easyui-linkbutton" data-options="plain:true" formaction="@{Manager.updateStudentsSuccess()}" formmethod="get">}*
-*{        }**{                        <input type="button" value="返回" formaction="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true" onclick="$('#hoverstreewindow').window('close')">}*
-*{                            </div>}*
-*{                        </form>}*
-*{                    </div>}*
-
-
-
-
-*{        }**{            成绩弹窗}*
-*{                    <div id="grade" class="easyui-window"  closed="true" style="width:400px;padding:10px 60px 20px 60px;">}*
-*{                        <form>}*
-*{                            <table>}*
-*{                                <tr>}*
-*{                                    <td>语文</td>}*
-*{                                    <td><input type="text" class="easyui-textbox" name="chinese" value="${}"></td>}*
-*{                                </tr>}*
-*{                                <tr>}*
-*{                                    <td>英语</td>}*
-*{                                    <td><input type="text" class="easyui-textbox" name="English" value="${}"></td>}*
-*{                                </tr>}*
-*{                                <tr>}*
-*{                                    <td>数学</td>}*
-*{                                    <td><input type="text" class="easyui-textbox" name="maths" value="${}"></td>}*
-*{                                </tr>}*
-*{                            </table>}*
-*{                            <div style="text-align:center">}*
-*{                                <input type="submit" value="保存" class="easyui-linkbutton" data-options="plain:true" formaction="@{Manager.updateGradeSuccess ()}" formmethod="get">}*
-*{                            </div>}*
-*{                        </form>}*
-*{                    </div>}*
-*{                </div>}*
-*{            </div>}*
-*{        </div>}*
 
     </div>
 </div>

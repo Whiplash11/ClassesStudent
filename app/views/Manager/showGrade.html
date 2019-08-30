@@ -1,32 +1,60 @@
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/public/jquery-easyui-1.7.0/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_1370388_a7pf8axyu55.css">
     <link rel="stylesheet" type="text/css" href="/public/jquery-easyui-1.7.0/themes/icon.css">
     <script type="text/javascript" src="/public/jquery-easyui-1.7.0/jquery.min.js"></script>
     <script type="text/javascript" src="/public/jquery-easyui-1.7.0/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="@{'/public/javascripts/easyui-lang-zh_CN.js'}"></script>
+    <script src="//at.alicdn.com/t/font_1370388_a7pf8axyu55.js"></script>
     <script type="text/javascript" src="@{'/public/javascripts/showGrade.js'}"></script>
+
+    <style>
+        @font-face {
+            font-family: 'iconfont';  /* project id 1370388 */
+            src: url('//at.alicdn.com/t/font_1370388_a7pf8axyu55.eot');
+            src: url('//at.alicdn.com/t/font_1370388_a7pf8axyu55.eot?#iefix') format('embedded-opentype'),
+            url('//at.alicdn.com/t/font_1370388_a7pf8axyu55.woff2') format('woff2'),
+            url('//at.alicdn.com/t/font_1370388_a7pf8axyu55.woff') format('woff'),
+            url('//at.alicdn.com/t/font_1370388_a7pf8axyu55.ttf') format('truetype'),
+            url('//at.alicdn.com/t/font_1370388_a7pf8axyu55.svg#iconfont') format('svg');
+        }
+        .iconfont {
+            font-family: "iconfont" !important;
+            font-size: 16px;
+            font-style: normal;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .icon {
+            width: 1em;
+            height: 1em;
+            vertical-align: -0.15em;
+            fill: currentColor;
+            overflow: hidden;
+        }
+    </style>
 </head>
 
 <div  id="cc">
 工具菜单
     <div id="ss" >
-*{        <a  href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="$('#hovers'+'treewindow').window('open')">}*
-*{            编辑}*
-*{        </a>}*
-*{        <a class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" href="javascript:void(0)"  onclick="$('#hover'+'treewindow').window('open')" >}*
-*{            添加}*
-*{        </a>}*
-*{        <a id="aaa" href="@{Manager.centerStudent()}" class="easyui-linkbutton"}*
-*{           data-options="iconCls:'icon-redo',plain:true" style="float: right">}*
-*{            返回学生}*
-*{        </a>}*
-*{        <form>}*
-*{            <input id="searchBar" type="search" name="sId" class="easyui-searchbox" >}*
-*{            <input id="search" type="submit"  class="easyui-linkbutton" data-options="plain:true" formaction="@{Manager.searchStudents()}" formmethod="post">}*
-*{        </form>}*
+        <a  href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true" onclick="$('#hovers'+'treewindow').window('open')">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-icon_edit"></use>
+            </svg>编辑
+        </a>
+        <a class="easyui-linkbutton" data-options="plain:true" href="javascript:void(0)"  onclick="$('#hover'+'treewindow').window('open')" >
+            <span class="iconfont icon-userplus-fill"></span>添加
+        </a>
+        <a id="aaa" href="@{Manager.centerStudent()}" class="easyui-linkbutton"
+           data-options="plain:true" style="float: right">
+            <span class="iconfont icon-fanhui"></span>返回学生
+        </a>
+        <form>
+            <input id="searchBar" type="search" name="sId" class="easyui-searchbox" >
+            <input id="search" type="submit"  class="easyui-linkbutton" data-options="plain:true" formaction="@{Manager.searchStudents()}" formmethod="post">
+        </form>
         <a href="javascript:void(0)" ></a>
-
     </div>
 
 数据表格
@@ -35,23 +63,26 @@
         #{list items:grade, as:'grade'}
             <tr >
                 <td></td>
-                <td>${grade?.sId}</td>
-                <td >${grade?.chinese}</td>
-                <td >${grade?.english}</td>
-                <td>${grade?.maths}</td>
+                <td contenteditable="true">${grade?.sId}</td>
+                <td contenteditable="true">${grade?.chinese}</td>
+                <td contenteditable="true">${grade?.english}</td>
+                <td contenteditable="true">${grade?.maths}</td>
                 <td>
-                    <a  class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true"  onclick="$('#hovers'+'treewindow').window('open')">
-                        编辑
+                    <a id="aa" class="easyui-linkbutton" data-options="plain:true"  onclick="$('#editor').window('open')">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-icon_edit"></use>
+                        </svg>编辑
                     </a>
                 </td>
             </tr>
         #{/list}
         </table>
     </div>
+
 </div>
 
 
-    *{添加}*
+    添加
     <div id="hovertreewindow" class="easyui-window" title="添加班级" closed="true"style="width:400px;padding:10px 60px 20px 60px;">
         <form action="@{Manager.addGrade()}" method="post">
             学号：<input type="text" name="grade.sId" class="easyui-textbox" data-options="required:true"><br>
@@ -64,3 +95,87 @@
         </form>
     </div>
 
+    编辑
+    <div id="editor" class="easyui-window" title="修改成绩" closed="true" style="width:400px;padding:10px 60px 20px 60px;">
+        <form action="@{updateGradeSuccess()}" method="post">
+            <table >
+                <tr>
+                    <td>学号</td>
+                    <td>
+                    ${grade?.sId}
+                    </td>
+                </tr>
+                <tr>
+                    <td>语文</td>
+                    <td>
+                        <input type="hidden" value="${grade?.sId}" name="" />
+                        <input type="text" value="${grade?.chinese}" name="" class="easyui-textbox" data-options="required:true"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>英语</td>
+                    <td>
+                        <input type="hidden" value="${grade?.sId}" name=""/>
+                        <input type="text" value="${grade?.english}" name="" class="easyui-textbox" data-options="required:true"/>
+                    </td>
+                </tr>
+                <tr>
+                <td>数学</td>
+                <td>
+                    <input type="hidden" value="${grade?.sId}" name=""/>
+                    <input type="text" value="${grade?.maths}" name="" class="easyui-textbox" data-options="required:true"/>
+                </td>
+                </tr>
+            </table>
+            <div style="text-align:center">
+                <input type="submit" value="保存" class="easyui-linkbutton" data-options="plain:true" >
+            </div>
+        </form>
+    </div>
+*{<table id="dg" class="easyui-datagrid" fit="true" style="width: 100%"}*
+*{       data-options="}*
+*{				iconCls: 'icon-edit',}*
+
+*{                fit:true,}*
+*{                border:false,}*
+*{   				toolbar: '#tb',}*
+*{				url: 'datagrid_data1.json',}*
+*{				method: 'get',}*
+*{				onClickCell: onClickCell,}*
+*{				onEndEdit: onEndEdit,}*
+
+*{			">}*
+
+*{    <thead>}*
+*{    <tr>}*
+*{        <th data-options="field:'ck',checkbox:true"></th>}*
+*{        <th data-options="field:'sid',title:'学号',width:120,align:'center',editor:'text'，editor:{type:'numberbox',options:{precision:2}}"></th>}*
+*{        <th data-options="field: 'Chinese',title: '语文',width:120,align:'center',editor:'text'，editor:{type:'numberbox',options:{precision:2}}"></th>}*
+*{        <th data-options="field:'english',title:'英语',width:120,align:'center',editor:'text'，editor:{type:'numberbox',options:{precision:2}}"></th>}*
+*{        <th data-options="field:'math',title:'数学',width:120,align:'center',editor:'text'，editor:{type:'numberbox',options:{precision:2}}"></th>}*
+*{        <th data-options="field:'operation',title:'操作',width:150,align:'center',editor:{type:'numberbox',options:{precision:2}}"></th>}*
+*{    </tr>}*
+*{    #{list items:grade, as:'grade'}}*
+*{    <tr>}*
+*{        <th ></th>}*
+*{        <th >${grade?.sId}</th>}*
+*{        <th >${grade?.chinese}</th>}*
+*{        <th >${grade?.english}</th>}*
+*{        <th >${grade?.maths}</th>}*
+*{        <th >}*
+*{            <a id="aa" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true,width:150"  onclick="$('#editor').window('open')">}*
+*{                编辑}*
+*{            </a>}*
+*{        </th>}*
+*{    </tr>}*
+*{    #{/list}}*
+*{    </thead>}*
+*{</table>}*
+
+*{<div id="tb" style="height:auto">}*
+*{    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">Append</a>}*
+*{    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>}*
+*{    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">Accept</a>}*
+*{    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Reject</a>}*
+*{    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>}*
+*{</div>}*

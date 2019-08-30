@@ -2,13 +2,11 @@ $(function () {
     var rowNumber = 0;
     $("#cc").datagrid({
         fit:true,
-        // title:'班级列表',
-        // iconCls:'icon-search',
         rownumbers:true,
         pagination:true,
         fitColumns:true,
         border:false,
-        idField:'classId',
+        idField:'sid',
 
         onSelectPage:function(pageNumber,pageSize){
             $('#cc').datagrid('refresh','pageNumber='+pageNumber+'&pageSize=' +pageSize);
@@ -25,49 +23,48 @@ $(function () {
         striped:true,
         checkOnSelect:false,
         selectOncheck:true,
-        //singleSelect:true,
+
         onClickRow: function (rowIndex, rowData) {
             $(this).datagrid('unselectRow', rowIndex);
         },
 
         rownumbers:true,
-        singleSelect:true,
-
-        toolbar:
-            [{
-                text:'添加数据',
-                iconCls:'icon-add',
-                handler:function(){
-                    $("#cc").datagrid("insertRow",{
-                        index:0,
-                        row:{}
-                    });
-                    $("#cc").datagrid("beginEdit",0);
-
-                }
-            },
-                {
-                    text:'编辑数据',
-                    iconCls:'icon-edit',
-                    handler:function(){
-                        var hasSelect = $("#cc").datagrid("getSelections");
-                        if(hasSelect.length == 1){
-                            //alert(hasSelect[0].name);
-                            var row = hasSelect[0];
-                            rowNumber = $("#cc").datagrid("getRowIndex",row);
-                            $("#cc").datagrid("beginEdit",rowNumber);
-                        }
 
 
-                    }
-                },
-                {
-                    text:'保存修改',
-                    iconCls:'icon-save',
-                    handler:function(){
-                        $("#cc").datagrid("endEdit",rowNumber);
-                    }
-                }],
+        // toolbar:
+        //     [{
+        //         text:'添加数据',
+        //         iconCls:'icon-add',
+        //         handler:function(){
+        //             $("#cc").datagrid("insertRow",{
+        //                 index:0,
+        //                 row:{}
+        //             });
+        //             $("#cc").datagrid("beginEdit",0);
+        //
+        //         }
+        //     },
+        //         {
+        //             text:'编辑数据',
+        //             iconCls:'icon-edit',
+        //             handler:function(){
+        //                 var hasSelect = $("#cc").datagrid("getSelections");
+        //                 if(hasSelect.length == 1){
+        //                     //alert(hasSelect[0].name);
+        //                     var row = hasSelect[0];
+        //                     rowNumber = $("#cc").datagrid("getRowIndex",row);
+        //                     $("#cc").datagrid("beginEdit",rowNumber);
+        //                 }
+        //             }
+        //         },
+        //         {
+        //             text:'保存修改',
+        //             iconCls:'icon-save',
+        //
+        //             handler:function(){
+        //                 $("#cc").datagrid("endEdit",rowNumber);
+        //             }
+        //         }],
 
         pagination:true,
         onAfterEdit:function(index,data,changes){
@@ -78,6 +75,33 @@ $(function () {
             );
         }
     });
+
+    $('#editor').dialog({
+        title:'编辑信息',
+        iconCls:'icon-edit',
+        resizable:true, //调整窗口大小
+        draggable:true, //拖拽操作
+        minimizable:true,
+        closable:true, //显示关闭按钮
+    })
+
+    // (function(){
+    //     $('input[type="button"]').on('click', function(){
+    //         var $this = $(this),
+    //             edit_status = $this.attr('edit_status'),
+    //             status_value = edit_status && 1 == edit_status ? 0 : 1,
+    //             $td_arr = $this.parent().prevAll('td');
+    //         $this.val(1 == status_value ? 'complete' : 'edit').attr('edit_status', status_value);
+    //         $.each($td_arr, function(){
+    //             var $td = $(this);
+    //             if(1 == status_value) {
+    //                 $td.html('<input type="text" value="'+$td.html()+'">');
+    //             } else if(0 == status_value){
+    //                 $td.html($td.find('input[type=text]').val());
+    //             }
+    //         });
+    //     });
+    // })();
 });
 
 $('#cc').datagrid({ loadFilter: pagerFilter }).datagrid({
@@ -142,3 +166,71 @@ function addTab(title, url){
         });
     }
 }
+
+
+
+
+
+
+// var editIndex = undefined;
+// function endEditing(){
+//     if (editIndex == undefined){return true}
+//     if ($('#dg').datagrid('validateRow', editIndex)){
+//         $('#dg').datagrid('endEdit', editIndex);
+//         editIndex = undefined;
+//         return true;
+//     } else {
+//         return false;
+//     }
+// }
+// function onClickCell(index, field){
+//     if (editIndex != index){
+//         if (endEditing()){
+//             $('#dg').datagrid('selectRow', index)
+//                 .datagrid('beginEdit', index);
+//             var ed = $('#dg').datagrid('getEditor', {index:index,field:field});
+//             if (ed){
+//                 ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+//             }
+//             editIndex = index;
+//         } else {
+//             setTimeout(function(){
+//                 $('#dg').datagrid('selectRow', editIndex);
+//             },0);
+//         }
+//     }
+// }
+// function onEndEdit(index, row){
+//     var ed = $(this).datagrid('getEditor', {
+//         index: index,
+//         field: 'sid'
+//     });
+//     row.productname = $(ed.target).combobox('getText');
+// }
+// function append(){
+//     if (endEditing()){
+//         $('#dg').datagrid('appendRow',{status:'P'});
+//         editIndex = $('#dg').datagrid('getRows').length-1;
+//         $('#dg').datagrid('selectRow', editIndex)
+//             .datagrid('beginEdit', editIndex);
+//     }
+// }
+// function removeit(){
+//     if (editIndex == undefined){return}
+//     $('#dg').datagrid('cancelEdit', editIndex)
+//         .datagrid('deleteRow', editIndex);
+//     editIndex = undefined;
+// }
+// function accept(){
+//     if (endEditing()){
+//         $('#dg').datagrid('acceptChanges');
+//     }
+// }
+// function reject(){
+//     $('#dg').datagrid('rejectChanges');
+//     editIndex = undefined;
+// }
+// function getChanges(){
+//     var rows = $('#dg').datagrid('getChanges');
+//     alert(rows.length+' rows are changed!');
+// }

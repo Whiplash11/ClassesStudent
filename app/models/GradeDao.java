@@ -7,4 +7,8 @@ public class GradeDao extends GenericModel {
         Grade grade =Grade.findById(sId);
         return grade;
     }
+    public void updateGrade(Grade grade){
+
+        grade.save();
+    }
 }

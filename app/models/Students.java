@@ -3,7 +3,7 @@ package models;
 import play.db.jpa.GenericModel;
 
 import javax.persistence.*;
-import java.util.List;
+
 
 /**
  * @author
@@ -12,6 +12,7 @@ import java.util.List;
 @Table(name = "student")
 public class Students extends GenericModel {
     @Id
+
     public String sId;
     @Column
     public String sName;

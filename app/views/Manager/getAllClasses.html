@@ -1,9 +1,11 @@
 *{#{extends 'main.html'/}}*
 *{#{set title = 'Home'/}}*
 <link rel="stylesheet" type="text/css" href="/public/jquery-easyui-1.7.0/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_1370388_a7pf8axyu55.css">
 <link rel="stylesheet" type="text/css" href="/public/jquery-easyui-1.7.0/themes/icon.css">
 <script type="text/javascript" src="/public/jquery-easyui-1.7.0/jquery.min.js"></script>
 <script type="text/javascript" src="/public/jquery-easyui-1.7.0/jquery.easyui.min.js"></script>
+<script src="//at.alicdn.com/t/font_1370388_a7pf8axyu55.js"></script>
 <script type="text/javascript" src="@{'/public/javascripts/easyui-lang-zh_CN.js'}"></script>
 
 <script>
@@ -48,11 +50,6 @@
                 {field: 'className',title: '班级名称',width:120,align:'center'},
                 {field:'operation',title:'操作',width:150,align:'center'},
             ]],
-            // toolbar: [{
-            //     iconCls: 'icon-add',
-            //     text:'添加班级',
-            //
-            // }]
             toolbar:'#ss',
             striped:true,
             checkOnSelect:false,
@@ -72,7 +69,6 @@
         })
 
         $('#aa').linkbutton({
-            iconCls:'icon-add',
             plain:true,
         })
         $('#cc').datagrid({ loadFilter: pagerFilter }).datagrid({
@@ -123,58 +119,53 @@
         }
     }
 </script>
+<style>
+    @font-face {
+        font-family: 'iconfont';  /* project id 1370388 */
+        src: url('//at.alicdn.com/t/font_1370388_a7pf8axyu55.eot');
+        src: url('//at.alicdn.com/t/font_1370388_a7pf8axyu55.eot?#iefix') format('embedded-opentype'),
+        url('//at.alicdn.com/t/font_1370388_a7pf8axyu55.woff2') format('woff2'),
+        url('//at.alicdn.com/t/font_1370388_a7pf8axyu55.woff') format('woff'),
+        url('//at.alicdn.com/t/font_1370388_a7pf8axyu55.ttf') format('truetype'),
+        url('//at.alicdn.com/t/font_1370388_a7pf8axyu55.svg#iconfont') format('svg');
+    }
+    .iconfont {
+        font-family: "iconfont" !important;
+        font-size: 16px;
+        font-style: normal;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    .icon {
+        width: 1em;
+        height: 1em;
+        vertical-align: -0.15em;
+        fill: currentColor;
+        overflow: hidden;
+    }
+    a:hover{
+        color: #000000;
+        font-size: 16px;
+    }
 
-*{<div id="box" style="width: 600px;height: 400px;">}*
+    a:visited{
+        color: #013fc2;
+    }
 
-*{    <div data-options="region:'north',title:'header',noheader:true" style="height: 70px;"></div>}*
-*{    <div data-options="region:'south',title:'footer',noheader:true" style="height: 35px;line-height: 30px;text-align: center;"><a href="###">联系</a></div>}*
-*{    <div data-options="region:'west',title:'导航',split:true" style="width: 280px; padding: 10px;">}*
-*{        <ul id="tt" class="easyui-tree">}*
-*{            <li>}*
-*{                <span>管理</span>}*
-*{                <ul>}*
-*{                    <li>}*
-*{                        <span>班级列表</span>}*
-*{                        <ul>}*
-*{                        #{list items:allClasses, as:'classes'}}*
-*{                            <li><span>}*
-*{                                <a href="/Manager/getAllStudents?cId=${classes.cId}">${classes.cName}</a>}*
-*{                            </span></li>}*
-*{                        #{/list}}*
-*{                        </ul>}*
-*{                    </li>}*
+    /*去掉超链接下划线*/
+    a{ text-decoration:none}
+</style>
 
-*{                    <li>}*
-*{                        <span>学生管理</span>}*
-*{                        <ul>}*
-*{                            <li><span><a href="#">File 11</a></span></li>}*
-*{                            <li><span>File 12</span></li>}*
-*{                            <li><span>File 13</span></li>}*
-*{                        </ul>}*
-*{                    </li>}*
-*{                    <li>}*
-*{                        <span>教师管理</span>}*
-*{                        <ul>}*
-*{                            <li><span><a href="#">File 11</a></span></li>}*
-*{                            <li><span>File 12</span></li>}*
-*{                            <li><span>File 13</span></li>}*
-*{                        </ul>}*
-*{                    </li>}*
-*{                </ul>}*
-*{            </li>}*
-
-*{        </ul>}*
-*{    </div>}*
-*{    <div id="box" data-options="region:'center'" style="overflow:hidden">}*
-*{        <div id="tab" class="easyui-tabs" fit="true" >}*
     <div id="cc">
             <!--            <button id="bt" >遍历学生</button>-->
         <div id="ss">
-            <a href="/Manager/deleteClasses" name="delete"class="easyui-linkbutton" data-options="iconCls:'icon-cut',plain:true" onclick="myFunction()">
-                删除
+            <a href="/Manager/deleteClasses" name="delete"class="easyui-linkbutton" data-options="plain:true" onclick="myFunction()">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-icon_delete"></use>
+                </svg>删除
             </a>
             <a id="aa" href="javascript:void(0)"  onclick="$('#hover'+'treewindow').window('open')">
-                添加
+                <span class="iconfont icon-userplus-fill"></span>添加
             </a>
             <form>
                 <input id="search" type="search" name="cId" class="easyui-searchbox" >
@@ -189,8 +180,10 @@
                     <td>${classes.cId}</td>
                     <td><a href="#" onclick="addTab('学生表','http://localhost:9000/Manager/centerStudent')">${classes.cName}</a></td>
                     <td >
-                        <a href="/Manager/deleteClasses?cId=${classes.cId}" name="delete"class="easyui-linkbutton" data-options="iconCls:'icon-cut',plain:true" onclick="return myFunction()">
-                            删除
+                        <a href="/Manager/deleteClasses?cId=${classes.cId}" name="delete"class="easyui-linkbutton" data-options="plain:true" onclick="return myFunction()">
+                            <svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-icon_delete"></use>
+                            </svg>删除
                         </a>
                     </td>
                 </tr>
@@ -199,8 +192,6 @@
         </div>
     </div>
 *{</div>}*
-
-
 
 *{添加班级}*
 <div id="hovertreewindow" class="easyui-window" title="添加班级" closed="true"style="width:400px;padding:10px 60px 20px 60px;">

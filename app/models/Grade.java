@@ -8,8 +8,6 @@ import javax.persistence.*;
 @Table(name = "grade")
 public class Grade extends GenericModel {
     @Id
-    @Column(name = "sid")
-
     public String sId;
     @Column(name = "语文")
     public String chinese;
@@ -17,7 +15,6 @@ public class Grade extends GenericModel {
     public String maths;
     @Column(name = "英语")
     public String english;
-
 
 
     public Grade() {
